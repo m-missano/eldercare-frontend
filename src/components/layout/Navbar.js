@@ -15,9 +15,13 @@ function Navbar({ isOpen, onClose }) {
     }
   }, [isOpen]);
 
+  const handleBackdropClick = () => {
+    onClose();
+  }
+
   return (
     <>
-      {isOpen && <Backdrop/>}
+      {isOpen && <Backdrop closeNav={handleBackdropClick}/>}
       <div ref={navRef} className={styles.nav_container}>
         <div className={styles.nav_header}>
           <button className={styles.close_button} onClick={onClose}>

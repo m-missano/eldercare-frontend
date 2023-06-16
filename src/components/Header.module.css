@@ -1,6 +1,8 @@
 .header_container {
+    position: fixed;
+    width: 100vw;
     display: flex;
-    background-color: transparent;
+    background-color: #219CA4;
 }
   
 .header_title {
