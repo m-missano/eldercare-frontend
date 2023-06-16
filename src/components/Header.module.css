@@ -1,0 +1,59 @@
+.header_container {
+    display: flex;
+    background-color: transparent;
+}
+  
+.header_title {
+    display: flex;
+    padding-left: 5px;
+    color:#fff;
+}
+
+.header_title h1 {
+    font-family: 'Courgette';
+    font-style: italic;
+    font-weight: 600;
+    font-size: 50px;
+    margin-left: 10px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.header_navcontainer {
+    display: flex;
+    align-items: center;
+}
+
+.header_actions {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.header_login {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.header_sidebar {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    margin-left: 10px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.header_sidebar:hover {
+    background-color: rgba(255, 255, 255, 0.493); 
+    border-radius: 50%;
+    
+}
