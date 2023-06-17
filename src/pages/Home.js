@@ -1,6 +1,7 @@
 import styles from "./Home.module.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import stethocope from "../stethoscope.svg";
 
 function Home() {
   return (
@@ -17,6 +18,9 @@ function Home() {
       </div>
 
       <div className={styles.rectangle}>
+        <div className={styles.stethoscope_icon}>
+          <img src={stethocope} alt="carerIcon" />
+        </div>
       </div>
 
       <div className={styles.section2}>
