@@ -24,7 +24,7 @@ function Home() {
 
       <div className={styles.rectangle}>
         <div className={styles.stethoscope_box} onClick={handleCuidadorClick}>
-          <img src={stethocope} alt="carerIcon" />
+          <div className={styles.stethoscope_image}></div>
         </div>
       </div>
 

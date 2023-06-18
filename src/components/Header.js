@@ -37,7 +37,7 @@ function Header({ showLoginIcon = true}) {
       </div>
     )}
       {isLoginBarOpen && <LoginBar />}
-      <Navbar isOpen={isNavbarOpen} onClose={toggleNavbar} />
+      {<Navbar isOpen={isNavbarOpen} onClose={toggleNavbar} />}
     </header>
   );
 }
