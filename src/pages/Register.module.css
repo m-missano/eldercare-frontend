@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+.register_container {
+    display: flex;
+}
+
+.header_container {
+    z-index: 50;
+}
+
+.customFont {
+    font-family: 'poppins', sans-serif;
+}
+
+.form_title {
+    padding: 5px;
+    font-size: 1.2em;
+    color: #ffff;
+    font-weight: 500;
+    margin-top: 10px;
+    margin-bottom: 6px;
+    text-align: left;
+}
+
+.page_container{
+    position: relative;
+    margin-top: 123px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    background-image: linear-gradient(180deg, rgb(33,156,164) 0%, rgba(154, 243, 154, 0.575) 28%, rgba(72, 214, 207, 0.377) 100%);
+    background-position: center;
+    background-size: cover;
+    overflow-y: auto;
+}
+
+.footer_section {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.form_box {
+    margin-top: 20px;
+    background: rgba(102, 102, 102, 0.24);
+    border-radius: 10px;
+    padding: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.596);
+    margin-bottom: 150px;
+    width: 75%;
+    max-width: 1000px;
+}
+
+.form_group {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+    width: 100%;
+}
+  
+.form_box .column{
+    display: flex;
+    column-gap: 15px;
+}
+
+.checkbox_group {
+    flex-direction: row;
+    align-items: center;
+}
+  
+.checkbox_group .check_label {
+    font-size: 0.9em;
+    color: #fff;
+    margin-left: 10px;
+}
+  
+.form_group label {
+    font-size: 1em;
+    color: #ffff;
+    font-weight: 500;
+    margin-bottom: 6px;
+    text-align: left;
+}
+  
+.form_group input {
+    font-family: 'poppins', sans-serif;
+    font-size: 1em;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    background-color: #ffffff;
+    color: #219ca4;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    outline: 1px solid 444;
+}
+  
+.form_group input::placeholder {
+    color: #219ca4;
+}
+  
+.form_group .input_error {
+    font-family: 'poppins', sans-serif;
+    outline: 1px solid rgb(255, 72, 72);
+}
+ 
+input:-webkit-autofill {
+    -webkit-text-fill-color: #219ca4;
+}
+
+.form_group .error_message {
+    font-family: 'poppins', sans-serif;
+    color: rgb(255, 72, 72);
+    font-size: 1em;
+    margin-top: 6px;
+    margin-bottom: 0px;
+    text-align: left; 
+}
+  
+.form_group select {
+    font-family: 'poppins', sans-serif;
+    font-size: 1em;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    background-color: #ffffff;
+    color: #219ca4;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.column_adress {
+    display: flex;
+    column-gap: 7px;
+}
+
+.add_button_container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 18px;
+}
+
+.add_button_container button {
+    font-family: 'Courier New', Courier, monospace;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    color: #ffffff;
+    background-color: transparent;
+    border: 2px solid #fff;
+    outline: none;
+    cursor: pointer;
+    font-size: 30px;
+    font-weight: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add_button_container button:hover {
+    color: #ffffff;
+    background-color: #219ba456;
+    border: 2px solid #fff;
+}
+
+.form_button_container button {
+    font-family: 'poppins', sans-serif;
+    width: 20%;
+    height: 55px;
+    border-radius: 40px;
+    background: #fff;
+    color: #219ca4;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1.3em;
+    font-weight: 500;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    transition: all 500ms ease;
+}
+  
+.form_button_container button:hover {
+    cursor: pointer;
+    background-color: #219ca4;
+    color: #ffff;
+}

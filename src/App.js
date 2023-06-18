@@ -8,6 +8,8 @@ import AddUser from './components/AddUser';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import React from 'react';
 import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register'
 
 function App() {
 
@@ -27,11 +29,13 @@ function App() {
     <div className="App">
       <Router>
         <Routes> 
-          <Route exact path="/" element={<Home />} /> 
-          {/*<Routr path="/buscar" element={<Buscar />} />*/}
-          {/*<Routr path="/acompanhamento" element={<Buscar />} />*/}
-          {/*<Routr path="/contato" element={<Buscar />} />*/}
-          {/*<Routr path="/sobre" element={<Buscar />} />*/}
+          <Route path="/home" element={<Home />} /> 
+          <Route exact path="/" element={<Login />} /> 
+          {/*<Route path="/buscar" element={<Buscar />} />*/}
+          {/*<Route path="/acompanhamento" element={<Buscar />} />*/}
+          {/*<Route path="/contato" element={<Buscar />} />*/}
+          {/*<Route path="/sobre" element={<Buscar />} />*/}
+          <Route path="/register" element={<Register/>} />
         </Routes>
       </Router>
     </div>

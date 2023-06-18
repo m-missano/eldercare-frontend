@@ -4,6 +4,11 @@ import Footer from "../components/Footer";
 import stethocope from "../stethoscope.svg";
 
 function Home() {
+
+  const handleCuidadorClick = () => {
+    console.log("Clique na área do cuidador");
+  };
+
   return (
     <div className={styles.home_container}>
 
@@ -18,7 +23,7 @@ function Home() {
       </div>
 
       <div className={styles.rectangle}>
-        <div className={styles.stethoscope_icon}>
+        <div className={styles.stethoscope_box} onClick={handleCuidadorClick}>
           <img src={stethocope} alt="carerIcon" />
         </div>
       </div>
