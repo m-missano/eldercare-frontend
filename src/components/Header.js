@@ -1,9 +1,9 @@
 import { useState} from 'react';
 import styles from "./Header.module.css"
-import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Navbar from "./layout/Navbar";
 import LoginBar from "./layout/LoginBar";
+import { GiHamburgerMenu } from 'react-icons/gi';
 
 function Header({ showLoginIcon = true}) {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
@@ -23,7 +23,7 @@ function Header({ showLoginIcon = true}) {
     <header className={styles.header_container}>
       <div className={styles.header_navcontainer}>
         <button className={styles.header_button} onClick={toggleNavbar}>
-          <MenuIcon sx={{ color: '#fff', fontSize: 50 }} />
+          <GiHamburgerMenu size={60} color="#fff" />
         </button>
       </div>
       <div className={styles.header_title}>

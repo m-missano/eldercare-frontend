@@ -6,6 +6,7 @@ import Header from "../components/Header";
 import { Link } from 'react-router-dom';
 import Footer from "../components/Footer";
 import validator from 'validator';
+import Profile from "../components/Profile";
 
 function Register() {
     const { register, 
@@ -34,7 +35,20 @@ function Register() {
 
         <div className={`${styles.page_container} ${styles.customFont}`}>
             <div className={styles.form_box}>
-                <div className={styles.form_title}> DADOS DE USUÁRIO </div>
+                <div className={styles.profile_area}>
+                    <Profile />
+                </div>
+                <div className={styles.option_box}>
+                    <div className={styles.patient_option}>
+                        <input type="radio" id="check-patient" name="option" defaultChecked/>
+                        <label htmlFor="check-patient">Procuro Cuidador</label>
+                    </div>
+                    <div className={styles.carer_option}>
+                        <input type="radio" id="check-carer" name="option" />
+                        <label htmlFor="check-carer">Sou Cuidador</label>
+                    </div>
+                </div>
+                <div className={styles.form_title}> DADOS DO USUÁRIO </div>
                 <div className={styles.form_group}>
                     <label>Nome</label>
                     <input
@@ -142,7 +156,7 @@ function Register() {
                     </div>
 
                     {errors?.privacyTerms?.type === 'required' && (
-                    <p className={styles.error_message}>Você deve concordar com a política de privacidade.</p>
+                    <p className={styles.error_message_check}>Você deve concordar com a política de privacidade.</p>
                     )}
                 </div>
 

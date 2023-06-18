@@ -1,7 +1,7 @@
 import React, { useState,useEffect,useRef } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Navbar.module.css';
-import MenuIcon from '@mui/icons-material/Menu';
+import { GiHamburgerMenu } from 'react-icons/gi';
 import Backdrop from './Backdrop';
 
 function Navbar({ isOpen, onClose }) {
@@ -25,7 +25,7 @@ function Navbar({ isOpen, onClose }) {
       <div ref={navRef} className={styles.nav_container}>
         <div className={styles.nav_header}>
           <button className={styles.close_button} onClick={onClose}>
-            <MenuIcon sx={{ color: '#219CA4', fontSize: 50 }} />
+           <GiHamburgerMenu size={60} color="#219ca4" />
           </button>
           <h1>eldercare</h1>
         </div>
