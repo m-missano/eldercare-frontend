@@ -50,6 +50,8 @@
     border-radius: 40px 40px 40px 40px;
     box-shadow: -3px 0px 10px rgba(0, 0, 0, 0.2), 3px 0px 10px rgba(0, 0, 0, 0.2);
     align-self: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
   
 .rectangle::before {
@@ -62,29 +64,84 @@
     background-color: #219CA4;
 }
 
-.stethoscope_box {
-    margin-left: 50%;
-    border-radius: 0px 40px 40px 00px;
-    width: 50%;
+
+.patient_box {
+    border-radius: 40px 0px 0px 40px;
+    width: 100%;
     height: 100%;
-    cursor: pointer;
+}
+
+.patient_box:hover {
+    background-color: rgba(157, 248, 255, 0.267);
+}
+
+.patient_link{
+    border-radius: 40px 0px 0px 40px;
+    width: 100%;
+    height: 100%;
     display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 3fr 2fr;
+    justify-items: center;
+    text-decoration: none;
+}
+
+.patient_link p {
+    color: #219ca4;
+    text-decoration: none;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.patient_image {
+    margin-top: 20px;
+    background-image: url('../stethoscope.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    height: 85%;
+}
+
+
+.stethoscope_box {
+    border-radius: 0px 40px 40px 0px;
+    width: 100%;
+    height: 100%;
 }
 
 .stethoscope_box:hover {
     background-color: rgba(157, 248, 255, 0.267);
 }
 
+.stethoscope_link{
+    border-radius: 0px 40px 40px 0px;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 3fr 2fr;
+    justify-items: center;
+    text-decoration: none;
+}
+
+.stethoscope_link p{
+    color: #219ca4;
+    text-decoration: none;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
 .stethoscope_image {
+    margin-top: 20px;
     background-image: url('../stethoscope.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    width: 65%;
-    height: 65%;
-    justify-self: center;
-    align-self: center;
+    width: 100%;
+    height: 85%;
 }
+
 
 .board {
     margin-left: 60px;

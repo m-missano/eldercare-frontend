@@ -11,7 +11,7 @@ function Navbar({ isOpen, onClose }) {
     if (isOpen) {
       navRef.current.style.transform = 'translateX(100%)';
     } else {
-      navRef.current.style.transform = 'translateX(0)';
+      navRef.current.style.transform = 'translateX(0%)';
     }
   }, [isOpen]);
 

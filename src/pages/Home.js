@@ -1,13 +1,9 @@
 import styles from "./Home.module.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import stethocope from "../stethoscope.svg";
+import { Link } from 'react-router-dom';
 
 function Home() {
-
-  const handleCuidadorClick = () => {
-    console.log("Clique na área do cuidador");
-  };
 
   return (
     <div className={styles.home_container}>
@@ -23,8 +19,17 @@ function Home() {
       </div>
 
       <div className={styles.rectangle}>
-        <div className={styles.stethoscope_box} onClick={handleCuidadorClick}>
-          <div className={styles.stethoscope_image}></div>
+        <div className={styles.patient_box}>
+          <Link className={styles.patient_link} to="/">
+            <div className={styles.patient_image}></div>
+            <p>Procuro Cuidador</p>
+          </Link>
+        </div>
+        <div className={styles.stethoscope_box}>
+          <Link className={styles.stethoscope_link} to="/">
+            <div className={styles.stethoscope_image}></div>
+            <p>Sou Cuidador</p>
+          </Link>
         </div>
       </div>
 
