@@ -10,6 +10,7 @@ import React from 'react';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register'
+import About from './pages/About'
 
 function App() {
 
@@ -34,7 +35,7 @@ function App() {
           {/*<Route path="/buscar" element={<Buscar />} />*/}
           {/*<Route path="/acompanhamento" element={<Buscar />} />*/}
           {/*<Route path="/contato" element={<Buscar />} />*/}
-          {/*<Route path="/sobre" element={<Buscar />} />*/}
+          {<Route path="/sobre" element={<About/>} />}
           <Route path="/register" element={<Register/>} />
         </Routes>
       </Router>
