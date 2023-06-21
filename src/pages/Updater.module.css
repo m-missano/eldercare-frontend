@@ -1,0 +1,317 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+.updater_container {
+    display: flex;
+}
+
+.header_container {
+    z-index: 50;
+}
+
+.customFont {
+    font-family: 'poppins', sans-serif;
+}
+
+.form_title {
+    padding: 5px;
+    font-size: 1.2em;
+    color: #ffff;
+    font-weight: 500;
+    margin-top: 10px;
+    margin-bottom: 6px;
+    text-align: left;
+}
+
+.page_container{
+    position: relative;
+    margin-top: 123px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    background-image: linear-gradient(180deg, rgb(33,156,164) 0%, rgba(154, 243, 154, 0.575) 28%, rgba(72, 214, 207, 0.377) 100%);
+    background-position: center;
+    background-size: cover;
+    overflow-y: auto;
+}
+
+.footer_section {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.form_box {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-top: 20px;
+    background: rgba(102, 102, 102, 0.24);
+    border-radius: 10px;
+    padding: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.596);
+    margin-bottom: 150px;
+    width: 75%;
+    max-width: 1000px;
+}
+
+.profile_area {
+    height: 140px;
+    width: 140px;
+    justify-self: center;
+    margin-bottom: 15px;
+}
+
+.option_box {
+    color: #fff;
+    text-align: left;
+    justify-content: left;
+    display: flex;
+    column-gap: 30px;
+    padding: 5px;
+}
+  
+.option_box input[type="radio"] {
+    display: none;
+}
+  
+.option_box label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+  
+.option_box label:before {
+    content: "";
+    display: inline-block;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    background-color: #fff;
+    margin-right: 5px;
+    
+}
+  
+.option_box input[type="radio"]:checked + label:before {
+    background-color: #219ca4;
+}
+
+.inner {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    padding: 10px;
+}
+
+.big_input {
+    height: 140px;
+}
+
+.form_group {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+    width: 100%;
+}
+
+.form_group_uf {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+    width: 40%;
+}
+
+.form_group_uf label {
+    font-size: 1em;
+    color: #ffff;
+    font-weight: 500;
+    margin-bottom: 6px;
+    text-align: left;
+}
+
+.selectContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    
+}
+
+.form_box .column{
+    display: flex;
+    column-gap: 15px;
+}
+
+.checkbox_group {
+    flex-direction: row;
+    align-items: center;
+}
+  
+.checkbox_group .check_label {
+    font-size: 0.9em;
+    color: #fff;
+    margin-left: 10px;
+}
+  
+.form_group label {
+    font-size: 1em;
+    color: #ffff;
+    font-weight: 500;
+    margin-bottom: 6px;
+    text-align: left;
+}
+  
+.form_group input {
+    font-family: 'poppins', sans-serif;
+    font-size: 1em;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: #219ca4;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    outline: none;
+}
+  
+.form_group input::placeholder {
+    color: #219ca4;
+}
+  
+.form_group .input_error {
+    font-family: 'poppins', sans-serif;
+    outline: 1px solid rgb(255, 72, 72);
+}
+ 
+input:-webkit-autofill {
+    -webkit-text-fill-color: #219ca4;
+}
+
+.form_group .error_message {
+    font-family: 'poppins', sans-serif;
+    color: rgb(255, 72, 72);
+    font-size: 1em;
+    margin-top: 6px;
+    margin-bottom: 0px;
+    text-align: left; 
+}
+
+.form_group_uf .error_message {
+    font-family: 'poppins', sans-serif;
+    color: rgb(255, 72, 72);
+    font-size: 1em;
+    margin-top: 6px;
+    margin-bottom: 0px;
+    text-align: left; 
+}
+
+.form_group_uf .error_selec_message {
+    font-family: 'poppins', sans-serif;
+    color: rgb(255, 72, 72);
+    font-size: 1em;
+    margin-bottom: 0px;
+    text-align: left; 
+}
+
+.form_group .error_message_check {
+    color: rgb(255, 72, 72);
+    font-size: 1em;
+    margin-top: 6px;
+    margin-bottom: 0px;
+}
+  
+.form_group_uf select {
+    font-family: 'poppins', sans-serif;
+    font-size: 1em;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: #219ca4;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    outline: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 100%;
+    margin-top: 0px;
+}
+
+.column_adress {
+    display: flex;
+    column-gap: 7px;
+}
+
+.form_group textarea {
+    font-family: 'poppins', sans-serif;
+    font-size: 1em;
+    border: none;
+    padding-top: 25px;
+    padding-bottom: 40px;
+    padding-left: 15px;
+    padding-right: 15px;
+    height: 160px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: #219ca4;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    outline: none;
+    resize: none; 
+}
+
+.form_group textarea::placeholder {
+    color: #219ca4;
+}
+  
+.add_button_container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 18px;
+}
+
+.add_button_container button {
+    font-family: 'Courier New', Courier, monospace;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    color: #ffffff;
+    background-color: transparent;
+    border: 2px solid #fff;
+    outline: none;
+    cursor: pointer;
+    font-size: 30px;
+    font-weight: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add_button_container button:hover {
+    color: #ffffff;
+    background-color: #219ba456;
+    border: 2px solid #fff;
+}
+
+.form_button_container button {
+    font-family: 'poppins', sans-serif;
+    width: 20%;
+    height: 65px;
+    border-radius: 40px;
+    background: #fff;
+    color: #219ca4;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1.3em;
+    font-weight: 500;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    transition: all 500ms ease;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+  
+.form_button_container button:hover {
+    cursor: pointer;
+    background-color: #219ca4;
+    color: #ffff;
+}

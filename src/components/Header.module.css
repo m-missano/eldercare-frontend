@@ -39,6 +39,10 @@
     margin-right: 30px;
 }
 
+.header_login:hover {
+    background-color: transparent;
+}
+
 .header_button {
     background-color: transparent;
     border: none;

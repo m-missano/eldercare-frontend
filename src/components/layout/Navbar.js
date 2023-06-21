@@ -9,9 +9,9 @@ function Navbar({ isOpen, onClose }) {
 
   useEffect(() => {
     if (isOpen) {
-      navRef.current.style.transform = 'translateX(0%)';
+      navRef.current.style.transform = 'translateX(100%)';
     } else {
-      navRef.current.style.transform = 'translateX(-100%)';
+      navRef.current.style.transform = 'translateX(0)';
     }
   }, [isOpen]);
 
@@ -38,9 +38,6 @@ function Navbar({ isOpen, onClose }) {
           </li>
           <li className={styles.item}>
             <Link to="/acompanhamento">Acompanhamento</Link>
-          </li>
-          <li className={styles.item}>
-            <Link to="/contato">Contato</Link>
           </li>
           <li className={styles.item}>
             <Link to="/sobre">Sobre</Link>

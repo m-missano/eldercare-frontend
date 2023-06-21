@@ -21,7 +21,7 @@
     justify-items: left;
 }
 
-.login_header button {
+.login_header svg {
     grid-row: 1/-1;
     background-color: transparent;
     border: none;
