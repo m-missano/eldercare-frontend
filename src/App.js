@@ -13,6 +13,7 @@ import About from './pages/About';
 import Buscar from './pages/Search';
 import Updater from './pages/Updater';
 import PageProfile from './pages/PageProfile';
+import Follow from './pages/Follow';
 
 function App() {
 
@@ -37,7 +38,7 @@ function App() {
           <Route path="/buscar" element={<Buscar />} />
           <Route path="/updater" element={<Updater />} />
           <Route path="/profile" element={<PageProfile/>} />
-          {/*<Route path="/acompanhamento" element={<Buscar />} />*/}
+          <Route path="/acompanhamento" element={<Follow />} />
           {/*<Route path="/contato" element={<Buscar />} />*/}
           {<Route path="/sobre" element={<About/>} />}
           <Route path="/register" element={<Register/>} />

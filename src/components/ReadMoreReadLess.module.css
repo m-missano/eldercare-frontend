@@ -1,0 +1,80 @@
+.readMoreLess{
+    outline: #219CA4;
+    font-weight: normal;
+    text-align: left;
+    width:100%;
+}
+
+.readMoreLess button{
+    display: flex;
+    background-color: transparent;
+    border: 0;
+    font-size: medium;
+    height: 50px;
+}
+
+.readMoreLess .description_box {
+    display: grid;
+    grid-template-columns: 8fr 1fr;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 40px;
+}
+
+.descriptionText{
+    font-family: 'poppins', sans-serif;
+    font-size: 1em;
+    padding-bottom: 40px;
+    padding-left: 10px;
+    padding-right: 15px;
+    border-radius: 5px;
+    color: #219ca4;
+    margin-left: 10px;
+}
+
+.descriptionTextarea {
+    font-family: 'poppins', sans-serif;
+    font-size: 1em;
+    border: none;
+    padding-bottom: 40px;
+    padding-left: 10px;
+    padding-right: 15px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: #219ca4;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    outline: 2px solid #219ba483;
+    resize: none; 
+    width: 95%;
+    height: 70%;
+    margin-left: 10px;
+    
+}
+
+.description_box .saveButton{
+    position: absolute;
+    top: 22px;
+    right: 0;
+    color:#219CA4;
+    width: 30px;
+}
+
+.description_box .editButton{
+    position: absolute;
+    top: 22px;
+    right: 0;
+    color:#219CA4;
+    width: 30px;
+}
+
+.description_box .saveButton:hover{
+    background-color: transparent;
+}
+
+.description_box .editButton:hover{
+    background-color: transparent;
+}
+
+.description_box span:hover{
+    background-color: transparent;
+}
