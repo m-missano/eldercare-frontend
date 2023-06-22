@@ -43,7 +43,7 @@
     color: #219ca4;
 }
   
-.close_button {
+.nav_container .close_button {
     background-color: transparent;
     border: none;
     cursor: pointer;

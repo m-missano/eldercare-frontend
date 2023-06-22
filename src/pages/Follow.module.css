@@ -23,14 +23,127 @@
     overflow-y: auto;
 }
 
+.select_idoso {
+    position: absolute;
+    top: 5px;
+    height: 5%;
+    width: 80%;
+    max-width: 1050px;
+    background: rgb(255, 255, 255);
+    border-radius: 10px;
+    border: 2px solid rgba(56, 161, 156, 0.349);
+    margin-bottom: 10px;
+}
+
+.select_idoso select {
+    height: 100%;
+    width: 100%;
+    max-width: 1050px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1.3rem;
+    color: #207b83;
+    padding: 5px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("../expand.svg");
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: 35px;
+    padding-right: 25px;
+}
+
+.column_addIdoso {
+    display: flex;
+    align-items: center;
+    background-color:#ffffff;
+    border-radius: 15px;
+    height: 40px;
+    width: 240px;
+    margin-left: 0px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.idosoTitle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 10px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #219CA4;
+    position: absolute;
+}
+
+.column_addIdoso .addButton {
+    width: 240px;
+    height: 45px;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0);
+    outline: none;
+    position: absolute;
+}
+
+.column_addIdoso .addButton:hover {
+   background-color: #219ba436;
+}
+
+.column_addIdoso .addIcon:hover {
+    background-color: #219ba400;
+ }
+
+.column_addIdoso .addIcon {
+    position: absolute;
+    color:#219CA4;
+    background-color: transparent;
+    outline: none;
+    align-self: right;
+    right: 2px;
+    border-radius: 30px;
+    font-size: 2.2rem;
+}
+
+.modalContentB {
+    font-family: 'Nunito Sans', sans-serif;
+    position: relative;
+    width: 700px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: #fff;
+    margin: 100px auto;
+    padding: 20px; 
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); 
+    border-radius: 18px;
+}
+
+.modalContentB .form_group{
+    height: 30%;
+} 
+
+.modalContentB h2{
+    margin-bottom: 25px;
+}
+
+.modalContentB .form_group label{
+    color:#219CA4;
+    margin-bottom: 5px;
+    font-size: 1.1rem;
+} 
+
 .inner_container {
+    margin-top: 175px;
     position: absolute;
     max-height: 75%;
-    height: 75%;
+    height: 70%;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr 5fr;
-    margin-top: 20px;
     background: rgb(255, 255, 255);
     border-radius: 10px;
     padding: 20px;
@@ -304,6 +417,21 @@
 
 .form_group input::placeholder {
     color: #219ca4;
+}
+
+  
+.form_group .input_error {
+    font-family: 'poppins', sans-serif;
+    outline: 1px solid rgb(255, 72, 72);
+}
+
+.form_group .error_message {
+    font-family: 'poppins', sans-serif;
+    color: rgb(255, 72, 72);
+    font-size: 1em;
+    margin-top: 6px;
+    margin-bottom: 0px;
+    text-align: left; 
 }
 
 .buttons_container {

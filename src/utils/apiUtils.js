@@ -25,3 +25,13 @@ export const addUser = async (body) => {
     .then((response) => response.json())
     .catch((err) => console.log(err.message))
 }
+
+export const fetchUserByUsername = (username, token) => {
+    return fetch(`http://localhost:8080/api/usuario?username=${username}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .catch((err) => console.log(err.message));
+  };

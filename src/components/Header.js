@@ -32,7 +32,7 @@ function Header({ showLoginIcon = true}) {
       {showLoginIcon && (
       <div className={styles.header_actions}>
         <button className={styles.header_login} onClick={toggleLoginBar}>
-          <AccountCircle sx={{ color: '#fff', fontSize: 50 }} />
+          <AccountCircle className={styles.header_icon} />
         </button>
       </div>
     )}

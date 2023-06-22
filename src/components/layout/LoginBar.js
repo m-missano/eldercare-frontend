@@ -7,7 +7,7 @@ function LoginBar(){
 return(
     <div className={styles.login_container}>
         <div className={styles.login_header}>
-              <AccountCircle sx={{ color: '#219ca4', fontSize: 50 }} />
+              <AccountCircle />
            <h1>  Username </h1> 
            <h2>  Email </h2>
         </div>
