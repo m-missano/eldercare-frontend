@@ -5,6 +5,10 @@ import { Link } from 'react-router-dom';
 
 function Home() {
 
+    /*useEffect(() => {
+    fetchAuthorization({login:"login3", password: "123"}).then((data) => console.log(data))
+  }, [])*/
+
   return (
     <div className={styles.home_container}>
 
@@ -20,13 +24,13 @@ function Home() {
 
       <div className={styles.rectangle}>
         <div className={styles.patient_box}>
-          <Link className={styles.patient_link} to="/">
+          <Link className={styles.patient_link} to="/login">
             <div className={styles.patient_image}></div>
             <p>Procuro Cuidador</p>
           </Link>
         </div>
         <div className={styles.stethoscope_box}>
-          <Link className={styles.stethoscope_link} to="/">
+          <Link className={styles.stethoscope_link} to="/login">
             <div className={styles.stethoscope_image}></div>
             <p>Sou Cuidador</p>
           </Link>

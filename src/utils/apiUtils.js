@@ -1,6 +1,6 @@
 
 /* Recupera todos os usuarios */
-export const fetchUsers = (cpf) => {
+export const fetchUsers = () => {
     return fetch(`http://localhost:8080/api/usuario/`)
         .then((response) => response.json())
         .catch((err) => console.log(err.message))
@@ -27,11 +27,30 @@ export const addUser = async (body) => {
 }
 
 export const fetchUserByUsername = (username, token) => {
-    return fetch(`http://localhost:8080/api/usuario?username=${username}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+    //const tokenWithoutBearer = token.replace('Bearer ', '');
+    //console.log(tokenWithoutBearer);
+    return fetch(`http://localhost:8080/api/usuario/username/${username}`, {
+        headers: {
+            'Authorization': token,
+        },
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Erro na requisição da API');
+        }
+        return response.json();
+      })
       .catch((err) => console.log(err.message));
-  };
+};
+
+export const fetchAuthorization = (body) => {
+    return fetch(`http://localhost:8080/api/login`, {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+        },
+        body: JSON.stringify(body),
+    })
+    .then((response) => response.json())
+    .catch((err) => console.log(err.message));
+};

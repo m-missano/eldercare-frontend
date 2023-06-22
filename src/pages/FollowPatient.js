@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import styles from "./Follow.module.css";
+import styles from "./FollowPatient.module.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Modal, IconButton, Button } from "@material-ui/core";
@@ -9,7 +9,7 @@ import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import ReadMoreReadLess from "../components/ReadMoreReadLess";
 import { cpf } from "cpf-cnpj-validator";
 
-function Follow() {
+function FollowPatient() {
 
     const cuidadorData = {
         "idPessoa": 1,
@@ -141,7 +141,7 @@ function Follow() {
             </div>
 
             <div className={`${styles.page_container} ${styles.customFont}`}>
-                <div className={styles.select_idoso}>
+                {/*<div className={styles.select_idoso}>
                     <select value={selectedIdoso} onChange={(e) => setSelectedIdoso(e.target.value)}>
                         <option value="0">Selecione o idoso que deseja acompanhar</option>
                         {selectOptions}
@@ -308,7 +308,7 @@ function Follow() {
                             </div>
                         ))}
                     </div>
-                </div>
+                </div>*/}
             </div>
 
             <div className={styles.footer_section}>
@@ -318,4 +318,4 @@ function Follow() {
     );
 }
 
-export default Follow;
+export default FollowPatient;
