@@ -34,14 +34,14 @@ function Login() {
           console.log(username_data)
           if (username_data.flag === 'Cuidador') {
             setCookie('cuidadorToken', token);
+            navigate('/acompanhamento');
           }
           else if (username_data.flag === 'Patient') {
             setCookie('patientToken', token);
+            navigate('/buscar');
           }
         }).catch((err) => console.log(err.message))
-  
-        // Redirecione o usuário para a página desejada após o login
-        navigate('/');
+
       } else {
         // Trate o caso de erro no login, por exemplo, exibindo uma mensagem de erro para o usuário
         alert('Falha no login, verifique suas credenciais');

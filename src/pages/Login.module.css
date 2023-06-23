@@ -115,6 +115,12 @@ button{
     font-weight: 600;
 }
 
+form button:hover{
+    cursor: pointer;
+    background-color: #219ca4;
+    color: #ffff;
+}
+
 .register{
     font-size: 1.1em;
     color: #fff;

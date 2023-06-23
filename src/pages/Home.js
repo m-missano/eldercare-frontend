@@ -24,13 +24,13 @@ function Home() {
 
       <div className={styles.rectangle}>
         <div className={styles.patient_box}>
-          <Link className={styles.patient_link} to="/login">
+          <Link className={styles.patient_link} to="/buscar">
             <div className={styles.patient_image}></div>
             <p>Procuro Cuidador</p>
           </Link>
         </div>
         <div className={styles.stethoscope_box}>
-          <Link className={styles.stethoscope_link} to="/login">
+          <Link className={styles.stethoscope_link} to="/acompanhamento">
             <div className={styles.stethoscope_image}></div>
             <p>Sou Cuidador</p>
           </Link>

@@ -9,7 +9,7 @@ function About() {
     <div className={styles.about_container}>
 
         <div className={styles.header_container}>
-            <Header />
+            <Header showLoginIcon={false}/>
         </div>
 
         <div className={`${styles.page_container} ${styles.customFont}`}>

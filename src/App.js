@@ -26,13 +26,14 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route exact path="/login" element={<Login />} />
-
+          
            {/* Rotas para o Cuidador */}
            {cookies.cuidadorToken && (
             <>
               <Route path="/acompanhamento" element={<FollowCaregiver />} />
+              <Route path="/buscar" element={<Buscar />} />
+              <Route path="/updater" element={<Updater />} />
+              <Route path="/profile" element={<PageProfile />} />
               {/* Outras rotas específicas para o Cuidador */}
             </>
           )}
@@ -41,15 +42,22 @@ function App() {
            {cookies.patientToken && (
             <>
               <Route path="/acompanhamento" element={<FollowPatient />} />
+              <Route path="/buscar" element={<Buscar />} />
+              <Route path="/updater" element={<Updater />} />
+              <Route path="/profile" element={<PageProfile />} />
               {/* Outras rotas específicas para o Paciente */}
             </>
           )}
-          <Route path="/buscar" element={<Buscar />} />
-          <Route path="/updater" element={<Updater />} />
-          <Route path="/profile" element={<PageProfile />} />
           {/*<Route path="/contato" element={<Buscar />} />*/}
-          {<Route path="/sobre" element={<About />} />}
+          
+          <Route path="/" element={<Home />} />
+          <Route exact path="/login" element={<Login />} />
+          <Route path="/sobre" element={<About />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/buscar" element={<Login />} />
+          <Route path="/updater" element={<Login />} />
+          <Route path="/profile" element={<Login />} />
+          <Route path="/acompanhamento" element={<Login />} />
         </Routes>
       </Router>
     </div>
