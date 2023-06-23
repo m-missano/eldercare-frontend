@@ -1,22 +1,30 @@
-import { useState} from 'react';
+import { useState, useEffect } from 'react';
 import styles from "./Header.module.css"
-import AccountCircle from '@mui/icons-material/AccountCircle';
 import Navbar from "./layout/Navbar";
-import LoginBar from "./layout/LoginBar";
 import { GiHamburgerMenu } from 'react-icons/gi';
+import { useCookies } from 'react-cookie';
+import LoginButton from './LoginButton';
 
 function Header({ showLoginIcon = true}) {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
-  const [isLoginBarOpen, setIsLoginBarOpen] = useState(false);
-  
+  const [cookies] = useCookies(['cuidadorToken', 'patientToken', 'username'])
   const [isLogged, setisLogged] = useState(false);
+  const [isNotLogged, setisNotLogged] = useState(false);
+ 
+
+  useEffect(() => {
+    if (cookies.cuidadorToken || cookies.patientToken || cookies.username) {
+      // Se pelo menos um cookie estiver presente, consideramos o usuário como logado
+      setisLogged(true);
+      setisNotLogged(false);
+    } else {
+      setisLogged(false);
+      setisNotLogged(true);
+    }
+  }, [cookies]);
 
   const toggleNavbar = () => {
     setIsNavbarOpen(!isNavbarOpen);
-  };
-
-  const toggleLoginBar = () => {
-    setIsLoginBarOpen(!isLoginBarOpen);
   };
 
   return (
@@ -29,14 +37,7 @@ function Header({ showLoginIcon = true}) {
       <div className={styles.header_title}>
         <h1>eldercare</h1>
       </div>
-      {showLoginIcon && (
-      <div className={styles.header_actions}>
-        <button className={styles.header_login} onClick={toggleLoginBar}>
-          <AccountCircle className={styles.header_icon} />
-        </button>
-      </div>
-    )}
-      {isLoginBarOpen && <LoginBar />}
+      {showLoginIcon && <LoginButton isLoggedIn={isLogged} isLoggedOut={isNotLogged} username={cookies.username}/>}
       {<Navbar isOpen={isNavbarOpen} onClose={toggleNavbar} />}
     </header>
   );
