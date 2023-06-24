@@ -16,7 +16,7 @@ import { updateUser } from "../utils/apiUtils";
 
 function Updater() {
 
-    const [cookies] = useCookies(['carerToken', 'patientToken', 'username'])
+    const [cookies, setCookies] = useCookies(['carerToken', 'patientToken', 'username'])
     const navigate = useNavigate();
 
     const [userData, setUserData] = useState();
@@ -90,6 +90,8 @@ function Updater() {
                 reputacao: 0
             }; 
 
+            setCookies('username', data.username)
+
             updateUser(cookies.carerToken, formattedDataCaregiver)            
                 .then((client_data) => {
                 alert('Dados atualizados com sucesso!');
@@ -100,13 +102,14 @@ function Updater() {
         else if(userData.flag === "Patient"){
             const formattedDataPatient = {
                 nome: data.name,
-                cpf: userData.CPF,
+                cpf: userData.cpf,
                 login: data.username,
+                password: "12345678",
+                flag: userData.flag,
                 sexo: data.gender,
-                dataNasc: data.date,
                 contato: {
-                celular: data.cellphone,
-                email: data.email,
+                    celular: data.cellphone,
+                    email: data.email,
                 },
                 endereco: {
                     rua: data.street,
@@ -115,9 +118,11 @@ function Updater() {
                     cep: data.cep,
                     numero: data.number,
                     uf: data.uf,
-                }
+                },
+                dataNasc: data.date,
             };      
             
+            setCookies('username', data.username)
 
             updateUser(cookies.patientToken, formattedDataPatient)
                 .then((client_id) => {
