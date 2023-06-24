@@ -2,11 +2,44 @@ import styles from "./Search.module.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Link } from 'react-router-dom';
-import {useState} from 'react';
+import { useState, useEffect } from 'react';
 import { ReactComponent as Icone } from "../expand.svg";
+import { useCookies } from 'react-cookie';
+import { fetchUserById } from "../utils/apiUtils";
 
 function Search() {
     const [selecionado, setSelecionado] = useState(false);
+    const [cookies] = useCookies(['carerToken', 'patientToken', 'username'])
+    const ids = [15,18];
+    const [listaCarers, setListaCarers] = useState([]);
+
+    useEffect(() => {
+        if (cookies.carerToken || cookies.patientToken) {
+          // Se pelo menos um cookie estiver presente, consideramos o usuário como logado
+          fetchCuidadores();
+        } else {
+    
+        }
+    }, [cookies.carerToken]);
+      
+    const fetchCuidadores = async () => {
+        let token;
+        try {
+          if(cookies.carerToken){
+            token = cookies.carerToken
+          }
+          else if(cookies.patientToken){
+            token = cookies.patientToken
+          }
+          const promises = ids.map(id => fetchUserById(id, token));
+          const cuidadores = await Promise.all(promises);
+      
+          setListaCarers(cuidadores);
+          console.log("listCarers",listaCarers);
+        } catch (error) {
+          console.log(error.message);
+        }
+    };
 
     const handleIconeClick = () => {
       setSelecionado(true);
