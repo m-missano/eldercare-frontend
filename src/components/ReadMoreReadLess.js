@@ -6,7 +6,7 @@ import { IconButton } from "@material-ui/core";
 import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from '@mui/icons-material/Save';
 
-function ReadMoreReadLess({ description, onSave }) {
+function ReadMoreReadLess({ description, onSave, allow=true }) {
   const [expanded, setExpanded] = useState(false);
   const [editing, setEditing] = useState(false);
   const [editedDescription, setEditedDescription] = useState(description);
@@ -51,9 +51,11 @@ function ReadMoreReadLess({ description, onSave }) {
           ) : (
             <>
               <div className={styles.descriptionText}>{description}</div>
+              {allow && (
               <IconButton className={styles.editButton} onClick={toggleEditing}>
                 <EditIcon className={styles.editIcon}/>
               </IconButton>
+              )}
             </>
           )}
         </div>

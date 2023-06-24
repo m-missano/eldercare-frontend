@@ -78,6 +78,23 @@ export const fetchUserByUsername = (username, token) => {
       .catch((err) => console.log(err.message));
 };
 
+export const fetchActivityByElderID = (elderID, token) => {
+    return fetch(`http://localhost:8080/api/idoso/atividade/${elderID}`, {
+      headers: {
+        'Authorization': token,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Erro na requisição da API');
+        }
+        return response.json();
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+};
+
 export const fetchAuthorization = (body) => {
     return fetch(`http://localhost:8080/api/login`, {
         method: 'POST',
