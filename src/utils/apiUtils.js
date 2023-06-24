@@ -35,6 +35,31 @@ export const addUser = async (body) => {
     }
 }
 
+/* Adiciona um novo usuario */
+export const updateUser = async (token, body) => {
+    try {
+        const response = await fetch(`http://localhost:8080/api/usuario/`, {
+          method: 'PUT',
+          body: JSON.stringify(body),
+          headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+            'Authorization': token,
+          },
+        });
+    
+        if (!response.ok) {
+          throw new Error('Erro na requisição da API');
+        }
+    
+        const data = await response.json();
+        return data
+     } catch (err) {
+        console.log(err.message);
+    }
+}
+
+
+
 /* Deleta usuario */
 export const deleteUser = async (cpf) => {
     await fetch(`http://localhost:8080/api/usuario/${cpf}`, {

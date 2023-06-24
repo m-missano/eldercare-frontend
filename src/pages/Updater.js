@@ -2,27 +2,131 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import styles from "./Updater.module.css";
 import Header from "../components/Header";
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import Footer from "../components/Footer";
 import validator from 'validator';
 import Profile from "../components/Profile";
 import { cpf } from "cpf-cnpj-validator";
 import { removeNonNumeric } from "../utils/Utils";
+import { useCookies } from "react-cookie";
+import { fetchUserByUsername } from "../utils/apiUtils";
+import { formatDate } from "../utils/Utils"
+import { updateUser } from "../utils/apiUtils";
+
 
 function Updater() {
+
+    const [cookies] = useCookies(['carerToken', 'patientToken', 'username'])
+    const navigate = useNavigate();
+
+    const [userData, setUserData] = useState();
+
     const { register, 
             handleSubmit, 
             formState: {errors},
             watch,  
-        } = useForm({delayError: 1500});
+        } = useForm({
+                delayError: 1500,
+                defaultValues: () => {
+                    let token                    
+                    if (cookies.carerToken || cookies.patientToken || cookies.username) {
+                        if(cookies.carerToken){
+                            token = cookies.carerToken;
+                        }
+                        else if(cookies.patientToken){
+                            token = cookies.patientToken;
+                        }
+                        
+                        return fetchUserByUsername(cookies.username, token)
+                        .then((username_data) => {
+                            setUserData(username_data)
+                            return {
+                                name: username_data.nome,
+                                username: username_data.login,
+                                date: formatDate(username_data.dataNasc),
+                                gender: username_data.sexo,
+                                email: username_data.contato.email,
+                                cellphone: username_data.contato.celular,
+                                street: username_data.endereco.rua,
+                                number: username_data.endereco.numero.toString(),
+                                bairro: username_data.endereco.bairro,
+                                city: username_data.endereco.cidade,
+                                uf: username_data.endereco.uf,
+                                cep: username_data.endereco.cep
+                            };
+                        })
+                    } else {
+                      /*
+                      TODO: fazer o else
+                      */
+                    }
+
+                }
+            });
 
     const onSubmit = (data) => {
-        console.log(data);
-    };
+        if(userData.flag === "Carer"){
+            const formattedDataCaregiver = {
+                nome: data.name,
+                cpf: userData.cpf,
+                login: data.username,
+                password: "12345678",
+                flag: userData.flag,
+                sexo: data.gender,
+                contato: {
+                    celular: data.cellphone,
+                    email: data.email,
+                },
+                endereco: {
+                    rua: data.street,
+                    bairro: data.bairro,
+                    cidade: data.city,
+                    cep: data.cep,
+                    numero: data.number,
+                    uf: data.uf,
+                },
+                dataNasc: data.date,
+                descricao: userData.descricao,
+                reputacao: 0
+            }; 
 
-    const [userType, setUserType] = useState("procuroCuidador");
-    const [addElderSection, setAddSection] = useState();
-    const watchPassword = watch("password");                          
+            updateUser(cookies.carerToken, formattedDataCaregiver)            
+                .then((client_data) => {
+                alert('Dados atualizados com sucesso!');
+                    navigate('/');
+            })
+            .catch((err) => console.log(err.message))
+        }
+        else if(userData.flag === "Patient"){
+            const formattedDataPatient = {
+                nome: data.name,
+                cpf: userData.CPF,
+                login: data.username,
+                sexo: data.gender,
+                dataNasc: data.date,
+                contato: {
+                celular: data.cellphone,
+                email: data.email,
+                },
+                endereco: {
+                    rua: data.street,
+                    bairro: data.bairro,
+                    cidade: data.city,
+                    cep: data.cep,
+                    numero: data.number,
+                    uf: data.uf,
+                }
+            };      
+            
+
+            updateUser(cookies.patientToken, formattedDataPatient)
+                .then((client_id) => {
+                    alert('Perfil atualizado com sucesso!');
+                    navigate('/');
+                })
+                .catch((err) => console.log(err.message))
+        }
+    };                          
 
     return (
     <div className={styles.updater_container}>
@@ -70,20 +174,6 @@ function Updater() {
                 </div>
 
                 <div className={styles.column}>
-                    <div className={styles.form_group}>
-                        <label>CPF</label>
-                        <input
-                        className={errors?.CPF && styles.input_error}
-                        type="text"
-                        placeholder="Seu CPF"
-                        {...register("CPF", {
-                            required: true,
-                            validate: (value) => cpf.isValid(value)                                
-                        })}
-                        />
-                        {errors?.CPF?.type === 'required' && <p className={styles.error_message}>CPF necessário.</p>}
-                        {errors?.CPF?.type === 'validate' && <p className={styles.error_message}>CPF não é válido.</p>}
-                    </div>
                     <div className={styles.form_group_uf}>
                         <div className={styles.selectContainer}>
                             <label>
@@ -118,47 +208,6 @@ function Updater() {
                     />
                     {errors?.username?.type === 'required' && <p className={styles.error_message}>Nome de usuário é necessário.</p>}
                 </div>
-
-                <div className={styles.column}>
-                    <div className={styles.form_group}>
-                        <label>Senha</label>
-                        <input
-                        className={errors?.password && styles.input_error}
-                        type="password"
-                        placeholder="Senha"
-                        {...register("password", {required: true, minLength: 8})}
-                        />
-                        {errors?.password?.type === 'required' && (
-                        <p className={styles.error_message}>Forneça uma senha, por favor.</p>
-                        )}
-                        {errors?.password?.type === 'minLength' && (
-                        <p className={styles.error_message}>Senha deve ter no mínimo 8 caracteres.</p>
-                        )}
-                    </div>
-
-                    <div className={styles.form_group}>
-                        <label>Confirmação de senha</label>
-                        <input
-                        className={errors?.passwordConfirmation && styles.input_error}
-                        type="password"
-                        placeholder="Digite sua senha novamente"
-                        {...register("passwordConfirmation", {
-                            required: true, 
-                            minLength: 8,
-                            validate: (value) => value === watchPassword,
-                        })}
-                        />
-                        {errors?.passwordConfirmation?.type === 'required' && (
-                        <p className={styles.error_message}>Confirmação de senha necessária.</p>
-                        )}
-                        {errors?.password?.type === 'minLength' && (
-                        <p className={styles.error_message}>Senha deve ter no mínimo 8 caracteres.</p>
-                        )}
-                        {errors?.passwordConfirmation?.type === 'validate' && (
-                        <p className={styles.error_message}>Senhas não são iguais.</p>
-                        )}
-                    </div>
-                </div>  
 
                 <div className={styles.form_title}> CONTATO </div>
                 <div className={styles.form_group}>

@@ -29,7 +29,9 @@ function LoginButton({isLoggedIn, isLoggedOut}) {
                 setNome(username_data.nome);
             })
         } else {
-          
+          /*
+          TODO: fazer o else
+          */
         }
     }, [cookies]);
 
