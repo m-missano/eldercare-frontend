@@ -1,9 +1,9 @@
 .login_container {
     padding: 30px;
     position: fixed;
-    right:70px;
-    top: 60px;
-    height: 215px;
+    right:120px;
+    top: 70px;
+    height: 230px;
     width: 250px;
     border-radius: 40px;
     background-color: #FFFF;
@@ -34,6 +34,7 @@
     font-size: 25px;
     font-weight: 500;
     padding: 0px;
+    padding-left: 10px;
     margin: 0px;
 }
 

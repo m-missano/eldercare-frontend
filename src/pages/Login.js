@@ -32,8 +32,8 @@ function Login() {
         fetchUserByUsername(username, token).then((username_data) => {
           console.log(response)
           console.log(username_data)
-          if (username_data.flag === 'Cuidador') {
-            setCookie('cuidadorToken', token);
+          if (username_data.flag === 'Carer') {
+            setCookie('carerToken', token);
             navigate('/acompanhamento');
           }
           else if (username_data.flag === 'Patient') {

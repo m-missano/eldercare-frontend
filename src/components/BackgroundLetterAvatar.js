@@ -23,17 +23,28 @@ function BackgroundLetterAvatar({ name }) {
     return color;
   }
 
-  function stringAvatar(name) {
-    return {
-      sx: {
-        bgcolor: stringToColor(name),
-      },
-      children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
-    };
+ function stringAvatar(name) {
+  const nameParts = name.split(' ');
+  let initials = '';
+  if (nameParts.length > 0) {
+    initials += nameParts[0][0];
+    if (nameParts.length > 1) {
+      initials += nameParts[nameParts.length - 1][0];
+    }
   }
 
+  return {
+    sx: {
+      bgcolor: stringToColor(name),
+    },
+    children: initials,
+  };
+}
+
   return (
-    <Avatar {...stringAvatar(name)} className={styles.icon}/>
+    <div className={styles.avatar_box}>
+      <Avatar {...stringAvatar(name)} className={styles.icon}/>
+    </div>
   );
 }
 

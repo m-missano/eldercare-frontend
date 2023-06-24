@@ -2,12 +2,13 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import styles from "./Register.module.css";
 import Header from "../components/Header";
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import Footer from "../components/Footer";
 import validator from 'validator';
 import Profile from "../components/Profile";
 import { cpf } from "cpf-cnpj-validator";
 import { removeNonNumeric } from "../utils/Utils";
+import { addUser, addElder, deleteUser, fetchUsers } from "../utils/apiUtils";
 
 function Register() {
     const { register, 
@@ -16,12 +17,140 @@ function Register() {
             watch,  
         } = useForm({delayError: 1500});
 
+    const navigate = useNavigate();
+    
+    const [userType, setUserType] = useState("procuroCuidador");
+    //userType = "procuroCuidador"
+    //userType = "souCuidador"
+    const [addElderSection, setAddSection] = useState();
+    //AddElderSection = true : Cadastrando para outra pessoa
+    //AddElderSection = false: Cadastrando para mim
+
     const onSubmit = (data) => {
-        console.log(data);
+        console.log(data)
+        
+        if(userType === "souCuidador"){
+        const formattedDataCaregiver = {
+            nome: data.name,
+            cpf: data.CPF,
+            login: data.username,
+            password: data.password,
+            flag: "Carer",
+            sexo: data.gender,
+            dataNasc: data.date,
+            contato: {
+            celular: data.cellphone,
+            email: data.email,
+            },
+            endereco: {
+                rua: data.street,
+                bairro: data.bairro,
+                cidade: data.city,
+                cep: data.cep,
+                numero: data.number,
+                uf: data.uf,
+            },
+            descricao: `Olá, eu me chamo ${data.name}`,
+            reputacao: 0,
+            relacaoIdoso: "",
+            idososCuidados: [],
+            };  
+
+            console.log("Cuidador: " + formattedDataCaregiver)
+
+            addUser(formattedDataCaregiver)            
+                .then((client_data) => {
+                console.log("ID CuidadorDB: " + client_data)
+                alert('Cuidador registrado com sucesso!');
+                    navigate('/login');
+            })
+            .catch((err) => console.log(err.message))
+        }
+        else if(userType === "procuroCuidador"){
+            const formattedDataPatient = {
+                nome: data.name,
+                cpf: data.CPF,
+                login: data.username,
+                password: data.password,
+                flag: "Patient",
+                sexo: data.gender,
+                dataNasc: data.date,
+                contato: {
+                celular: data.cellphone,
+                email: data.email,
+                },
+                endereco: {
+                    rua: data.street,
+                    bairro: data.bairro,
+                    cidade: data.city,
+                    cep: data.cep,
+                    numero: data.number,
+                    uf: data.uf,
+                },
+                relacaoIdoso: "Parente",
+                idososRelacionados: [],
+            };      
+            
+            console.log("Cliente: " + formattedDataPatient)
+
+            addUser(formattedDataPatient)
+                .then((client_id) => {
+                    
+                    console.log("ClienteDB: " + client_id)
+                    if(addElderSection){
+                        const formattedDataElder = {
+                            nome: data.name_elder,
+                            cpf: data.CPF_elder,
+                            dataNasc: data.date_elder,
+                            sexo: data.gender_elder,
+                            condicoesMedicas: data.extraInfo,
+                        }
+        
+                        addElder(client_id, formattedDataElder)            
+                            .then(() => {
+                                alert('Registrado com sucesso!');
+                                navigate('/login');
+                        })
+                        .catch((err) => {
+                            console.log(err.message)
+                            deleteUser(client_id.cpf)            
+                                .then(() => {
+                                    alert('Erro de cadastro');
+                                    navigate('/home');
+                            }).catch((err) => console.log(err.message))
+                        })
+        
+                    }
+                    else if(!addElderSection){
+                        const formattedDataMyself = {
+                            nome: data.name,
+                            cpf: data.CPF,
+                            dataNasc: data.date,
+                            sexo: data.gender,
+                            condicoesMedicas: data.extraInfo,
+                        }
+        
+                        addElder(client_id, formattedDataMyself)            
+                            .then(() => {
+                                alert('Registrado com sucesso!');
+                                navigate('/login');
+                        })
+                        .catch((err) => {
+                            console.log(err.message)
+                            deleteUser(client_id.cpf)            
+                                .then(() => {
+                                    alert('Erro de cadastro');
+                                    navigate('/home');
+                            }).catch((err) => console.log(err.message))
+                        })
+                    }
+                })
+                .catch((err) => console.log(err.message))
+        }
     };
 
-    const [userType, setUserType] = useState("procuroCuidador");
-    const [addElderSection, setAddSection] = useState();
+   
+    
     const watchPassword = watch("password");                          
 
     return (
@@ -382,20 +511,20 @@ function Register() {
                         <div className={styles.form_group}>
                             <label>Nome</label>
                             <input
-                            className={errors?.name && styles.input_error}
+                            className={errors?.name_elder && styles.input_error}
                             type="text"
                             placeholder="Nome do idoso"
-                            {...register("name", {required: true })}
+                            {...register("name_elder", {required: true })}
                             />
-                            {errors?.name?.type === 'required' && <p className={styles.error_message}>Nome é necessário.</p>}
+                            {errors?.elder_name?.type === 'required' && <p className={styles.error_message}>Nome é necessário.</p>}
                         </div>
                         <div className={styles.form_group}>
                             <label>Data de nascimento</label>
                             <input
-                            className={errors?.date && styles.input_error}
+                            className={errors?.date_elder && styles.input_error}
                             type="date"
                             placeholder="Data de nascimento"
-                            {...register("date", {
+                            {...register("date_elder", {
                                 required: true,
                                 validate: {
                                     validAge: (value) => {
@@ -406,8 +535,8 @@ function Register() {
                                 }
                             })}
                             />
-                            {errors?.date?.type === 'required' && <p className={styles.error_message}>Data de nascimento necessária.</p>}
-                            {errors?.date?.type === 'validAge' && <p className={styles.error_message}>A data de nascimento deve ser anterior à data atual.</p>}
+                            {errors?.date_elder?.type === 'required' && <p className={styles.error_message}>Data de nascimento necessária.</p>}
+                            {errors?.date_elder?.type === 'validAge' && <p className={styles.error_message}>A data de nascimento deve ser anterior à data atual.</p>}
                         </div>
                     </div>
                             
@@ -415,16 +544,16 @@ function Register() {
                         <div className={styles.form_group}>
                             <label>CPF</label>
                             <input
-                            className={errors?.CPF && styles.input_error}
+                            className={errors?.CPF_elder && styles.input_error}
                             type="text"
                             placeholder="CPF do idoso"
-                            {...register("CPF", {
+                            {...register("CPF_elder", {
                                 required: true,
                                 validate: (value) => cpf.isValid(value)                                
                             })}
                             />
-                            {errors?.CPF?.type === 'required' && <p className={styles.error_message}>CPF necessário.</p>}
-                            {errors?.CPF?.type === 'validate' && <p className={styles.error_message}>CPF não é válido.</p>}
+                            {errors?.CPF_elder?.type === 'required' && <p className={styles.error_message}>CPF necessário.</p>}
+                            {errors?.CPF_elder?.type === 'validate' && <p className={styles.error_message}>CPF não é válido.</p>}
                         </div>
                         <div className={styles.form_group_uf}>
                             <div className={styles.selectContainer}>
@@ -432,8 +561,8 @@ function Register() {
                                     Sexo
                                 </label>
                                 <select
-                                className={`${styles.select_uf} ${errors?.gender && styles.error_selec_message}`}
-                                {...register("gender", {validate: (value) => {
+                                className={`${styles.select_uf} ${errors?.gender_elder && styles.error_selec_message}`}
+                                {...register("gender_elder", {validate: (value) => {
                                     return value !== "0" 
                                 }})}
                                 >
@@ -443,7 +572,7 @@ function Register() {
                                 <option value="Dragão">Prefiro não dizer</option>
                                 </select>
 
-                                {errors?.gender?.type === 'validate' && (
+                                {errors?.gender_elder?.type === 'validate' && (
                                 <p className={styles.error_message}>Sexo necessário.</p>
                                 )}
                             </div>

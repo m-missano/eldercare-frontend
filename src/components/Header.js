@@ -7,13 +7,13 @@ import LoginButton from './LoginButton';
 
 function Header({ showLoginIcon = true}) {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
-  const [cookies] = useCookies(['cuidadorToken', 'patientToken', 'username'])
+  const [cookies] = useCookies(['carerToken', 'patientToken', 'username'])
   const [isLogged, setisLogged] = useState(false);
   const [isNotLogged, setisNotLogged] = useState(false);
  
 
   useEffect(() => {
-    if (cookies.cuidadorToken || cookies.patientToken || cookies.username) {
+    if (cookies.carerToken || cookies.patientToken || cookies.username) {
       // Se pelo menos um cookie estiver presente, consideramos o usuário como logado
       setisLogged(true);
       setisNotLogged(false);
@@ -37,7 +37,7 @@ function Header({ showLoginIcon = true}) {
       <div className={styles.header_title}>
         <h1>eldercare</h1>
       </div>
-      {showLoginIcon && <LoginButton isLoggedIn={isLogged} isLoggedOut={isNotLogged} username={cookies.username}/>}
+      {showLoginIcon && <LoginButton isLoggedIn={isLogged} isLoggedOut={isNotLogged}/>}
       {<Navbar isOpen={isNavbarOpen} onClose={toggleNavbar} />}
     </header>
   );

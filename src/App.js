@@ -19,7 +19,7 @@ import { useCookies } from 'react-cookie';
 
 function App() {
 
-  const [cookies] = useCookies(['cuidadorToken', 'patientToken', 'username'])
+  const [cookies] = useCookies(['carerToken', 'patientToken', 'username'])
   const [user, setUser] = useState([]);
 
   return (
@@ -28,7 +28,7 @@ function App() {
         <Routes>
           
            {/* Rotas para o Cuidador */}
-           {cookies.cuidadorToken && (
+           {cookies.carerToken && (
             <>
               <Route path="/acompanhamento" element={<FollowCaregiver />} />
               <Route path="/buscar" element={<Buscar />} />

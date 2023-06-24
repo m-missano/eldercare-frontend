@@ -1,15 +1,48 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { IconButton } from "@material-ui/core";
 import LoginBar from "./layout/LoginBar";
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { useNavigate } from 'react-router-dom';
 import styles from "./LoginButton.module.css";
 import BackgroundLetterAvatar from './BackgroundLetterAvatar';
+import { fetchUserByUsername } from "../utils/apiUtils";
+import { useCookies } from "react-cookie";
 
-function LoginButton({isLoggedIn, isLoggedOut, username}) {
-
+function LoginButton({isLoggedIn, isLoggedOut, token, username}) {
+    const [cookies] = useCookies(['carerToken', 'patientToken', 'username'])
     const navigate = useNavigate();
-    const nome = "Muliro Bell";
+    const [nome, setNome] = useState('Murilo Bell');
+
+    /*useEffect(() => {
+        if (cookies.carerToken || cookies.patientToken || cookies.username) {
+          // Se pelo menos um cookie estiver presente, consideramos o usuário como logado
+          setisLogged(true);
+          setisNotLogged(false);
+        } else {
+          setisLogged(false);
+          setisNotLogged(true);
+        }
+    }, [cookies]);*/
+    
+    if(cookies.carerToken){
+        token = cookies.carerToken;
+    }
+    else if(cookies.patientToken){
+        token = cookies.patientToken;
+    }
+    if(token) {
+    // fetchUserByUsername(cookies.username, cookies.token)
+    //     .then((username_data) => {
+    //     console.log(username_data)
+    //     setNome(username_data.nome);
+    //     console.log("HEEELLLOOOO")
+    //     })
+    //     .catch((error) => {
+    //     console.log(error.message);
+    //     console.log("AAAAAA")
+    //     });
+    }
+
     const [isLoginBarOpen, setIsLoginBarOpen] = useState(false);
 
     const toggleLoginBar = () => {

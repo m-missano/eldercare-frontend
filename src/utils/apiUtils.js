@@ -15,7 +15,41 @@ export const fetchUserByCpf = (cpf) => {
 
 /* Adiciona um novo usuario */
 export const addUser = async (body) => {
-    await fetch(`http://localhost:8080/api/usuario/`, {
+    try {
+        const response = await fetch(`http://localhost:8080/api/usuario/`, {
+          method: 'POST',
+          body: JSON.stringify(body),
+          headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+          },
+        });
+    
+        if (!response.ok) {
+          throw new Error('Erro na requisição da API');
+        }
+    
+        const data = await response.json();
+        return data.idPessoa;
+     } catch (err) {
+        console.log(err.message);
+    }
+}
+
+/* Deleta usuario */
+export const deleteUser = async (cpf) => {
+    await fetch(`http://localhost:8080/api/usuario/${cpf}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+        },
+    })
+    .then((response) => response.json())
+    .catch((err) => console.log(err.message))
+}
+
+/* Adiciona um novo idoso */
+export const addElder = async (clientId, body) => {
+    await fetch(`http://localhost:8080/api/idoso/${clientId}`, {
         method: 'POST',
         body: JSON.stringify(body),
         headers: {
@@ -25,6 +59,7 @@ export const addUser = async (body) => {
     .then((response) => response.json())
     .catch((err) => console.log(err.message))
 }
+
 
 export const fetchUserByUsername = (username, token) => {
     //const tokenWithoutBearer = token.replace('Bearer ', '');

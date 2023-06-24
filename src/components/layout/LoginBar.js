@@ -6,11 +6,11 @@ import BackgroundLetterAvatar from '../BackgroundLetterAvatar';
 
 function LoginBar({ username, nome}){
 
-  const [cookies, setCookie, removeCookie] = useCookies(['username', 'cuidadorToken', 'patientToken']);
+  const [cookies, setCookie, removeCookie] = useCookies(['username', 'carerToken', 'patientToken']);
 
   const logout = () => {
     removeCookie('username');
-    removeCookie('cuidadorToken')
+    removeCookie('carerToken')
     removeCookie('patientToken')
   }
 
