@@ -8,40 +8,30 @@ import BackgroundLetterAvatar from './BackgroundLetterAvatar';
 import { fetchUserByUsername } from "../utils/apiUtils";
 import { useCookies } from "react-cookie";
 
-function LoginButton({isLoggedIn, isLoggedOut, token, username}) {
+function LoginButton({isLoggedIn, isLoggedOut}) {
     const [cookies] = useCookies(['carerToken', 'patientToken', 'username'])
     const navigate = useNavigate();
-    const [nome, setNome] = useState('Murilo Bell');
+    const [nome, setNome] = useState('');
 
-    /*useEffect(() => {
+    useEffect(() => {
+        let token;
         if (cookies.carerToken || cookies.patientToken || cookies.username) {
-          // Se pelo menos um cookie estiver presente, consideramos o usuário como logado
-          setisLogged(true);
-          setisNotLogged(false);
+            if(cookies.carerToken){
+                token = cookies.carerToken;
+                console.log("carerToken",token);
+            }
+            else if(cookies.patientToken){
+                token = cookies.patientToken;
+            }
+            fetchUserByUsername(cookies.username, token)
+            .then((username_data) => {
+                console.log("username:", username_data)
+                setNome(username_data.nome);
+            })
         } else {
-          setisLogged(false);
-          setisNotLogged(true);
+          
         }
-    }, [cookies]);*/
-    
-    if(cookies.carerToken){
-        token = cookies.carerToken;
-    }
-    else if(cookies.patientToken){
-        token = cookies.patientToken;
-    }
-    if(token) {
-    // fetchUserByUsername(cookies.username, cookies.token)
-    //     .then((username_data) => {
-    //     console.log(username_data)
-    //     setNome(username_data.nome);
-    //     console.log("HEEELLLOOOO")
-    //     })
-    //     .catch((error) => {
-    //     console.log(error.message);
-    //     console.log("AAAAAA")
-    //     });
-    }
+    }, [cookies]);
 
     const [isLoginBarOpen, setIsLoginBarOpen] = useState(false);
 
@@ -68,7 +58,7 @@ function LoginButton({isLoggedIn, isLoggedOut, token, username}) {
         </button>
         </div>
         )}
-        {isLoggedIn && isLoginBarOpen && <LoginBar username={username} nome={nome}/>}
+        {isLoggedIn && isLoginBarOpen && <LoginBar username={cookies.username} nome={nome}/>}
         </div>
     );
 }
