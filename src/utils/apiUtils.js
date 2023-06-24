@@ -23,12 +23,13 @@ export const addUser = async (body) => {
             'Content-type': 'application/json; charset=UTF-8',
           },
         });
-    
+        
         if (!response.ok) {
           throw new Error('Erro na requisição da API');
         }
-    
+        
         const data = await response.json();
+
         return data.idPessoa;
      } catch (err) {
         console.log(err.message);
@@ -85,7 +86,6 @@ export const addElder = async (clientId, body) => {
     .catch((err) => console.log(err.message))
 }
 
-
 export const fetchUserByUsername = (username, token) => {
     //const tokenWithoutBearer = token.replace('Bearer ', '');
     //console.log(tokenWithoutBearer);
@@ -118,6 +118,26 @@ export const fetchActivityByElderID = (elderID, token) => {
       .catch((error) => {
         console.log(error.message);
       });
+};
+
+export const updateActivity = (idosoId, atividadeId, token, data) => {
+  return fetch(`http://localhost:8080/api/idoso/atividade/${idosoId}/${atividadeId}`, {
+    method: 'PUT',
+    headers: {
+      'Authorization': token,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Erro na requisição da API');
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
 };
 
 export const fetchAuthorization = (body) => {

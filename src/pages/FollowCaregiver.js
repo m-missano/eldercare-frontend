@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import styles from "./FollowCaregiver.module.css";
 import Header from "../components/Header";
@@ -8,56 +8,12 @@ import { AddCircleOutline, Delete } from "@material-ui/icons";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import ReadMoreReadLess from "../components/ReadMoreReadLess";
 import { cpf } from "cpf-cnpj-validator";
+import { useCookies } from "react-cookie";
+import { fetchUserByUsername, fetchActivityByElderID, updateActivity } from "../utils/apiUtils";
+import { formatDate, getAge } from "../utils/Utils";
 
 function FollowCaregiver() {
-
-    const cuidadorData = {
-        "idPessoa": 1,
-        "nome": "Cuidador",
-        "cpf": "123456789",
-        "login": "cuidador1",
-        "password": "senha123",
-        "contato": {
-            "idContato": 1,
-            "telefone": "123456789",
-            "celular": "987654321",
-            "email": "cuidador1@example.com"
-        },
-        "endereco": {
-            "idEndereco": 1,
-            "rua": "Rua dos Cuidados",
-            "bairro": "Bairro Cuidadoso",
-            "cidade": "Cidade dos Cuidadores",
-            "cep": "12345-678",
-            "numero": "123",
-            "uf": "UF"
-        },
-        "descricao": "Descrição do Cuidador",
-        "reputacao": 5,
-        "idososCuidados": [
-            {
-                "id": 1,
-                "idade": 70,
-                "sexo": "Masculino",
-                "condicoesMedicas": "Hipertensão",
-                "nome": "Idoso 1"
-            },
-            {
-                "id": 2,
-                "idade": 75,
-                "sexo": "Feminino",
-                "condicoesMedicas": "Diabetes",
-                "nome": "Idoso 2"
-            },
-            {
-                "id": 3,
-                "idade": 80,
-                "sexo": "Masculino",
-                "condicoesMedicas": "Artrite",
-                "nome": "Idoso 3"
-            }
-        ]
-    };
+    const [cookies] = useCookies(['carerToken', 'username'])
 
     const { register, 
         handleSubmit, 
@@ -69,23 +25,20 @@ function FollowCaregiver() {
     const onSubmit = (data) => {
         console.log(data);
     };
-    const [selectedIdoso, setSelectedIdoso] = useState('');
+
+    const [selectedIdoso, setSelectedIdoso] = useState(0);
     const [sections, setSections] = useState([]);
+    const [nome, setNome] = useState('Idoso');
     const [activityName, setActivityName] = useState("");
     const [activityDescription, setActivityDescription] = useState("");
     const [open, setOpen] = useState(false);
     const [openModal, setOpenModal] = useState(false);
+    const [selectOptions, setSelectOptions] = useState([]);
+    const [idososCuidados, setIdososCuidados] = useState([]);
 
-    const idososCuidados = cuidadorData.idososCuidados;
-
-    const selectOptions = idososCuidados.map((idoso) => (
-        <option value={idoso.id}>{`${idoso.nome} - ${idoso.idade} anos - ${idoso.sexo}`}</option>
-    ));
-    
     const resetForm = () => {
         reset(); 
         clearErrors(); 
-
     };
 
     const handleOpen = () => {
@@ -116,16 +69,32 @@ function FollowCaregiver() {
         setActivityDescription("");
     };
 
-    const updateDescription = (id, newDescription) => {
+    const updateDescription = (id, newDescription, newName) => {
         const updatedSections = sections.map((section) => {
-            if (section.id === id) {
-                return {
-                    ...section,
-                    description: newDescription,
-                };
-            }
-            return section;
+           console.log("id que veio",id); 
+          if (section.id === id) {
+            const formattedData = {
+              categoriaAtividade: section.name,
+              descricao: newDescription,
+              id: idososCuidados[selectedIdoso - 1].rotinas[section.id].id,
+            };
+      
+            updateActivity(idososCuidados[selectedIdoso - 1].id, formattedData.id, cookies.carerToken, formattedData)
+              .then((response) => {
+                console.log('Descrição atualizada com sucesso!');
+              })
+              .catch((error) => {
+                console.log('Erro ao atualizar descrição:', error.message);
+              });
+      
+            return {
+              ...section,
+              description: newDescription,
+            };
+          }
+          return section;
         });
+      
         setSections(updatedSections);
     };
 
@@ -133,6 +102,42 @@ function FollowCaregiver() {
         const updatedSections = sections.filter((section) => section.id !== id);
         setSections(updatedSections);
     };
+
+    useEffect(() => {
+        if (cookies.carerToken || cookies.username) {
+            fetchUserByUsername(cookies.username, cookies.carerToken)
+            .then((carer_data) => {
+                setIdososCuidados(carer_data.idososCuidados);
+                setSelectOptions(carer_data.idososCuidados.map((idoso, index) => (
+                    <option value={index+1}>{`${idoso.nome} - ${getAge(idoso.dataNasc)} anos - ${idoso.sexo}`}</option>
+                    ))
+                );
+            })
+            .catch((error) => {
+                console.log(error.message);
+            });
+        }
+    }, [cookies]);
+
+    useEffect(() => {
+        if (selectedIdoso != 0) {
+            setNome(idososCuidados[selectedIdoso-1].nome);
+            const elderID = idososCuidados[selectedIdoso-1].id;
+            fetchActivityByElderID(elderID, cookies.carerToken)
+            .then((activity_data) => {
+                console.log("atv:",activity_data)
+                const activities = activity_data.map((activity, index) => ({
+                    id: index,
+                    name: activity.categoriaAtividade,
+                    description: activity.descricao,
+                }));
+                setSections(activities);
+            })
+            .catch((error) => {
+                console.log(error.message);
+            });
+        }
+    }, [selectedIdoso]);
 
     return (
         <div className={styles.profile_container}>
@@ -142,10 +147,10 @@ function FollowCaregiver() {
 
             <div className={`${styles.page_container} ${styles.customFont}`}>
                 <div className={styles.select_idoso}>
-                    <select value={selectedIdoso} onChange={(e) => setSelectedIdoso(e.target.value)}>
+                    <select value={selectedIdoso} onChange={(e) => setSelectedIdoso(parseInt(e.target.value))}>
                         <option value="0">Selecione o idoso que deseja acompanhar</option>
                         {selectOptions}
-                    </select>   
+                    </select>
                     <div className={styles.column_addIdoso}>
                         <div className={styles.idosoTitle}> ADICIONAR IDOSO</div>
                         <IconButton onClick={openModalHandler} className={styles.addButton}>
@@ -156,7 +161,7 @@ function FollowCaregiver() {
                 <div className={styles.inner_container}>
                     <div className={styles.inner_header}>
                         <div className={styles.header_title}>
-                            <h1>Nome do idoso vai aqui</h1>
+                            <h1>{nome}</h1>
                             <Modal
                                 open={open}
                                 onClose={handleClose}
@@ -252,7 +257,7 @@ function FollowCaregiver() {
                                             required: true,                              
                                         })}
                                         />
-                                        {errors?.CPF?.type === 'required' && <p className={styles.error_message}>Token necessário.</p>}
+                                        {errors?.token?.type === 'required' && <p className={styles.error_message}>Token necessário.</p>}
                                         
                                     </div>
                                     <div className={styles.buttons_container}>
@@ -284,9 +289,9 @@ function FollowCaregiver() {
                     </div>
                     <div className={styles.column_activity}>
                         <div className={styles.form_title}> ATIVIDADES</div>
-                        <IconButton onClick={handleOpen} className={styles.addButton}>
+                        {selectedIdoso > 0 && (<IconButton onClick={handleOpen} className={styles.addButton}>
                             <AddCircleOutline className={styles.addIcon} />
-                        </IconButton>
+                        </IconButton>)}
                     </div>
                     <div className={styles.activities}>
                         {sections.map((section) => (

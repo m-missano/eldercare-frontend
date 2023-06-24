@@ -9,3 +9,15 @@ export function formatDate(data) {
       .padStart(2, '0')}-${dataAux.getDate().toString().padStart(2, '0')}`;
     return formattedDate;
   }
+
+export function getAge(data) {
+    const today = new Date();
+    const birthDate = new Date(data);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) 
+    {
+        age--;
+    }
+    return age;
+}

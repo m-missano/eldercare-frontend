@@ -251,9 +251,9 @@ function Register() {
                             }})}
                             >
                             <option value="0">Selecione sexo</option>
-                            <option value="Homi">Masculino</option>
-                            <option value="Muié">Feminino</option>
-                            <option value="Dragão">Prefiro não dizer</option>
+                            <option value="Masculino">Masculino</option>
+                            <option value="Feminino">Feminino</option>
+                            <option value="Não Especificado">Prefiro não dizer</option>
                             </select>
 
                             {errors?.gender?.type === 'validate' && (
@@ -567,9 +567,9 @@ function Register() {
                                 }})}
                                 >
                                 <option value="0">Selecione sexo</option>
-                                <option value="Homi">Masculino</option>
-                                <option value="Muié">Feminino</option>
-                                <option value="Dragão">Prefiro não dizer</option>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Feminino">Feminino</option>
+                                <option value="Não Especificado">Prefiro não dizer</option>
                                 </select>
 
                                 {errors?.gender_elder?.type === 'validate' && (
