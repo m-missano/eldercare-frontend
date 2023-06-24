@@ -70,7 +70,6 @@ function Updater() {
                 nome: data.name,
                 cpf: userData.cpf,
                 login: data.username,
-                password: "12345678",
                 flag: userData.flag,
                 sexo: data.gender,
                 contato: {
@@ -90,12 +89,15 @@ function Updater() {
                 reputacao: 0
             }; 
 
-            setCookies('username', data.username)
-
             updateUser(cookies.carerToken, formattedDataCaregiver)            
                 .then((client_data) => {
                 alert('Dados atualizados com sucesso!');
+                if(cookies.username !== data.username){
+                    navigate('/login');
+                }
+                else{
                     navigate('/');
+                }
             })
             .catch((err) => console.log(err.message))
         }
@@ -104,7 +106,6 @@ function Updater() {
                 nome: data.name,
                 cpf: userData.cpf,
                 login: data.username,
-                password: "12345678",
                 flag: userData.flag,
                 sexo: data.gender,
                 contato: {
@@ -121,13 +122,17 @@ function Updater() {
                 },
                 dataNasc: data.date,
             };      
-            
-            setCookies('username', data.username)
 
             updateUser(cookies.patientToken, formattedDataPatient)
                 .then((client_id) => {
                     alert('Perfil atualizado com sucesso!');
-                    navigate('/');
+
+                    if(cookies.username !== data.username){
+                        navigate('/login');
+                    }
+                    else{
+                        navigate('/');
+                    }
                 })
                 .catch((err) => console.log(err.message))
         }
