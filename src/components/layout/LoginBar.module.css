@@ -59,6 +59,7 @@
 }
 
 .item {
+    
     margin-left: 20px;
     margin-right: 20px;
     margin-top: 0px;
@@ -75,4 +76,22 @@
     margin-top: 0px;
     margin-bottom: 0px;
     padding: 0px;
+}
+.perfil{
+    color: #219ca4;
+    position: absolute;
+    top: 130px;
+    right: 220px;
+}
+.edit{
+    color: #219ca4;
+    position: absolute;
+    top: 186px;
+    right: 235px;
+}
+.logout{
+    color: #219ca4;
+    position: absolute;
+    top: 239px;
+    right: 185px;
 }

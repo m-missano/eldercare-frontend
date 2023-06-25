@@ -58,9 +58,20 @@
 }
 
 .item {
+    display: flex;
+    align-items: center;
     text-align: center;
     border-bottom: 1px solid #219ca4;
     padding: 10px;
     margin-left: 20px;
     margin-right: 20px;
+}
+.icon {
+    color: #136066;
+    position: relative;
+ 
+}
+.acompanhamento{
+    width: 10px;
+    height: 10px;
 }

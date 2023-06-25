@@ -143,10 +143,7 @@ button:hover {
 
 .page_content {
     width: 100%;
-    height: 100%;
-    display: grid;
-    grid-template-columns: 250px auto;
-    column-gap: 25px;    
+    height: 100%;    
 }
 
 .filter_box {

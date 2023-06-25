@@ -3,6 +3,11 @@ import { Link } from 'react-router-dom';
 import styles from './Navbar.module.css';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import Backdrop from './Backdrop';
+import HomeIcon from '@mui/icons-material/Home';
+import SearchIcon from '@mui/icons-material/Search';
+import InfoIcon from '@mui/icons-material/Info';
+import ImportContactsIcon from '@mui/icons-material/ImportContacts';
+
 
 function Navbar({ isOpen, onClose }) {
   const navRef = useRef(null);
@@ -31,15 +36,19 @@ function Navbar({ isOpen, onClose }) {
         </div>
         <ul className={styles.list}>
           <li className={styles.item}>
+            <HomeIcon className={styles.icon}></HomeIcon>
             <Link to="/">Home</Link>
           </li>
           <li className={styles.item}>
+            <SearchIcon className={styles.icon}></SearchIcon>
             <Link to="/buscar">Buscar</Link>
           </li>
           <li className={styles.item}>
+            <ImportContactsIcon className={styles.icon}></ImportContactsIcon>
             <Link to="/acompanhamento">Acompanhamento</Link>
           </li>
           <li className={styles.item}>
+            <InfoIcon className={styles.icon}></InfoIcon>
             <Link to="/sobre">Sobre</Link>
           </li>
         </ul>

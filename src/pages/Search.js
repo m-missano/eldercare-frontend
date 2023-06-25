@@ -73,9 +73,7 @@ function Search() {
             </form>
              
             <div className={styles.page_content}>
-                <div className={styles.filter_box}>
-                    <h1>Filtros</h1>
-                </div>
+                
                 <div className={styles.caregiver_slots}>
                     <div className={styles.caregiver_box}>
                         <div className={styles.caregiver_content}>
