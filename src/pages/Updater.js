@@ -86,7 +86,7 @@ function Updater() {
                 },
                 dataNasc: data.date,
                 descricao: userData.descricao,
-                reputacao: 0
+                reputacao: userData.reputacao
             }; 
 
             updateUser(cookies.carerToken, formattedDataCaregiver)            

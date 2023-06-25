@@ -73,6 +73,7 @@ export const deleteUser = async (cpf) => {
     .catch((err) => console.log(err.message))
 }
 
+
 /* Adiciona um novo idoso */
 export const addElder = async (clientId, body) => {
     await fetch(`http://localhost:8080/api/idoso/${clientId}`, {
