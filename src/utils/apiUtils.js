@@ -142,59 +142,59 @@ return fetch(`http://localhost:8080/api/idoso/atividade/${idosoId}/${atividadeId
 };
 
 export const fetchAuthorization = (body) => {
-  return fetch(`http://localhost:8080/api/login`, {
-      method: 'POST',
-      headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-      },
-      body: JSON.stringify(body),
-  })
-  .then((response) => response.json())
-  .catch((err) => console.log(err.message));
+    return fetch(`http://localhost:8080/api/login`, {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+        },
+        body: JSON.stringify(body),
+    })
+    .then((response) => response.json())
+    .catch((err) => console.log(err.message));
 };
 
 export const fetchUserById = (userId, token) => {
-return fetch(`http://localhost:8080/api/usuario/${userId}`, {
-  headers: {
-    'Authorization': token,
-  },
-})
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error('Erro na requisição da API');
-    }
-    return response.json();
+  return fetch(`http://localhost:8080/api/usuario/${userId}`, {
+    headers: {
+      'Authorization': token,
+    },
   })
-  .catch((err) => console.log(err.message));
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Erro na requisição da API');
+      }
+      return response.json();
+    })
+    .catch((err) => console.log(err.message));
 };
 
 export const fetchElderByCPF = (CPF, token) => {
-return fetch(`http://localhost:8080/api/idoso/busca/${CPF}`, {
-  headers: {
-    'Authorization': token,
-  },
-})
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error('Erro na requisição da API');
-    }
-    return response.json();
+  return fetch(`http://localhost:8080/api/idoso/busca/${CPF}`, {
+    headers: {
+      'Authorization': token,
+    },
   })
-  .catch((err) => console.log(err.message));
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Erro na requisição da API');
+      }
+      return response.json();
+    })
+    .catch((err) => console.log(err.message));
 };
 
 export const setCarerForElder = (username, CPF, token, tokenJWT) => {
-return fetch(`http://localhost:8080/api/idoso/${username}/${CPF}/${token}`, {
-  method: "POST",
-  headers: {
-    'Authorization': tokenJWT,
-  },
-})
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error('Erro na requisição da API');
-    }
-    return response.json();
+  return fetch(`http://localhost:8080/api/idoso/${username}/${CPF}/${token}`, {
+    method: "POST",
+    headers: {
+      'Authorization': tokenJWT,
+    },
   })
-  .catch((err) => console.log(err.message));
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Erro na requisição da API');
+      }
+      return response.json();
+    })
+    .catch((err) => console.log(err.message));
 };

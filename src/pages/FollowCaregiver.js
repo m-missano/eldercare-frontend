@@ -10,7 +10,7 @@ import ReadMoreReadLess from "../components/ReadMoreReadLess";
 import { cpf } from "cpf-cnpj-validator";
 import { useCookies } from "react-cookie";
 import { fetchUserByUsername, fetchActivityByElderID, updateActivity, setCarerForElder } from "../utils/apiUtils";
-import { formatDate, getAge } from "../utils/Utils";
+import { getAge } from "../utils/Utils";
 
 function FollowCaregiver() {
     const [cookies] = useCookies(['carerToken', 'username'])
@@ -29,11 +29,25 @@ function FollowCaregiver() {
 
         setCarerForElder(cookies.username, data.CPF, data.token, cookies.carerToken)
           .then((response) => {
-            console.log(response); // Log da resposta do backend
-            // Verificar se a resposta é negativa (por exemplo, com base em um campo "success" ou "error" no objeto de resposta)
-            if (response.success !== true) {
+            console.log("response",response); 
+            if (!response) {
               // Resposta negativa: exibir alerta pedindo para verificar as credenciais
-              alert('Credenciais inválidas. Verifique o CPF e o token de validação.');
+              fetchUserByUsername(cookies.username, cookies.carerToken)
+                .then((carer_data) => {
+                    if (carer_data.idososCuidados) {
+                        const idosoCadastrado = carer_data.idososCuidados.find((idoso) => idoso.cpf === data.CPF);
+                        if (idosoCadastrado) {
+                            alert("O idoso já está cadastrado.");
+                        } 
+                        else {
+                            alert('Credenciais inválidas. Verifique o CPF e o token de validação.');
+                        }  
+                    }
+                })
+                .catch((error) => {
+                    console.log(error.message);
+                });
+
             }
             else {
                 fetchUserByUsername(cookies.username, cookies.carerToken)
@@ -47,6 +61,8 @@ function FollowCaregiver() {
                 .catch((error) => {
                     console.log(error.message);
                 });
+                closeModalHandler();
+                alert("Idoso adicionado ao acompanhamento.");
             }
           })
           .catch((error) => {
@@ -148,7 +164,7 @@ function FollowCaregiver() {
     }, [cookies]);
 
     useEffect(() => {
-        if (selectedIdoso != 0) {
+        if (selectedIdoso !== 0) {
             setNome(idososCuidados[selectedIdoso-1].nome);
             const elderID = idososCuidados[selectedIdoso-1].id;
             fetchActivityByElderID(elderID, cookies.carerToken)
