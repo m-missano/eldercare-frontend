@@ -121,6 +121,46 @@ export const fetchActivityByElderID = (elderID, token) => {
     });
 };
 
+export const addActivity = (idosoId, token, body) => {
+  return fetch(`http://localhost:8080/api/idoso/atividade/${idosoId}`, {
+    method: 'POST',
+    headers: {
+      'Authorization': token,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Erro na requisição da API');
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
+  };
+
+export const deleteActivity = (idosoid, actid, token) => {
+  return fetch(`http://localhost:8080/api/idoso/atividade/${idosoid}/${actid}`, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': token,
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Erro na requisição da API');
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
+};
+
+  
 export const updateActivity = (idosoId, atividadeId, token, data) => {
 return fetch(`http://localhost:8080/api/idoso/atividade/${idosoId}/${atividadeId}`, {
   method: 'PUT',

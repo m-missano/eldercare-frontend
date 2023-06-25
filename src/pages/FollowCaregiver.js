@@ -9,7 +9,7 @@ import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import ReadMoreReadLess from "../components/ReadMoreReadLess";
 import { cpf } from "cpf-cnpj-validator";
 import { useCookies } from "react-cookie";
-import { fetchUserByUsername, fetchActivityByElderID, updateActivity, setCarerForElder } from "../utils/apiUtils";
+import { fetchUserByUsername, fetchActivityByElderID, updateActivity, setCarerForElder, addActivity, deleteActivity } from "../utils/apiUtils";
 import { getAge } from "../utils/Utils";
 
 function FollowCaregiver() {
@@ -117,20 +117,23 @@ function FollowCaregiver() {
         const updatedSections = sections.map((section) => {
             console.log("id que veio",id);
             if (section.id === id) {
-                const formattedData = {
-                    categoriaAtividade: section.name,
-                    descricao: newDescription,
-                    id: section.id+1,
-                };
-        
-                updateActivity(idososCuidados[selectedIdoso - 1].id, formattedData.id, cookies.carerToken, formattedData)
-                .then((response) => {
-                    console.log('Descrição atualizada com sucesso!');
-                })
-                .catch((error) => {
-                    console.log('Erro ao atualizar descrição:', error.message);
-                });
-        
+                fetchActivityByElderID(idososCuidados[selectedIdoso - 1].id, cookies.carerToken)
+                    .then((activity_data) => {
+                        const formattedData = {
+                            categoriaAtividade: section.name,
+                            descricao: newDescription,
+                            id: activity_data[section.id].id,
+                        };
+                        
+                        updateActivity(idososCuidados[selectedIdoso - 1].id, formattedData.id, cookies.carerToken, formattedData)
+                        .then((response) => {
+                            console.log('Descrição atualizada com sucesso!');
+                        })
+                        .catch((error) => {
+                            console.log('Erro ao atualizar descrição:', error.message);
+                        });
+                    })
+            
                 return {
                     ...section,
                     description: newDescription,
@@ -182,6 +185,54 @@ function FollowCaregiver() {
             });
         }
     }, [selectedIdoso]);
+
+    const submitActivity = () => {
+        const body = {
+            descricao: activityDescription,
+            categoriaAtividade: activityName,
+        };
+    
+        addActivity(idososCuidados[selectedIdoso-1].id, cookies.carerToken, body)
+        .then((response) => {
+            console.log("response",response); 
+            if (response) {
+                addSection();
+                handleClose();
+            }
+            else{
+                alert('erro ao inserir atividade');
+            }
+        })
+        .catch(
+            (error) => {
+                alert("Erro ao cadastrar atividade");
+            }
+        )
+    };
+
+    const removeActivity = (id) => {
+        fetchActivityByElderID(idososCuidados[selectedIdoso - 1].id, cookies.carerToken)
+        .then((activity_data) => {
+            console.log("id do veio: AROOZZZZ", idososCuidados[selectedIdoso-1].id);
+            console.log("activity id: ", activity_data[id].id);
+            deleteActivity(idososCuidados[selectedIdoso-1].id, activity_data[id].id, cookies.carerToken)
+            .then((response) => {
+                console.log("response",response); 
+                if (response) {
+                    removeSection(id);
+                    handleClose();
+                }
+                else{
+                    alert('Erro ao remover atividade');
+                }
+            })
+            .catch(
+                (error) => {
+                    alert("Erro ao remover atividade");
+                }
+            )
+        })
+    };
 
     return (
         <div className={styles.profile_container}>
@@ -248,8 +299,7 @@ function FollowCaregiver() {
                                             color="primary"
                                             className={styles.saveButton}
                                             onClick={() => {
-                                                addSection();
-                                                handleClose();
+                                                submitActivity();
                                             }}
                                         >
                                             Salvar
@@ -348,7 +398,9 @@ function FollowCaregiver() {
                                 </div>
                                 <span className={styles.activityName}>{section.name}</span>
                                 <IconButton
-                                    onClick={() => removeSection(section.id)}
+                                    onClick={() => {
+                                        removeActivity(section.id)
+                                    }}
                                     className={styles.removeButton}
                                 >
                                     <Delete className={styles.removeIcon} />
