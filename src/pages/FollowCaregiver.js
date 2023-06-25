@@ -9,7 +9,7 @@ import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import ReadMoreReadLess from "../components/ReadMoreReadLess";
 import { cpf } from "cpf-cnpj-validator";
 import { useCookies } from "react-cookie";
-import { fetchUserByUsername, fetchActivityByElderID, updateActivity } from "../utils/apiUtils";
+import { fetchUserByUsername, fetchActivityByElderID, updateActivity, setCarerForElder } from "../utils/apiUtils";
 import { formatDate, getAge } from "../utils/Utils";
 
 function FollowCaregiver() {
@@ -23,8 +23,36 @@ function FollowCaregiver() {
     } = useForm({delayError: 1500});
 
     const onSubmit = (data) => {
-        console.log(data);
-    };
+        console.log("data",data)
+        console.log("cookies.username: ", cookies.username)
+        console.log("cookies.carerToken: ", cookies.carerToken)
+
+        setCarerForElder(cookies.username, data.CPF, data.token, cookies.carerToken)
+          .then((response) => {
+            console.log(response); // Log da resposta do backend
+            // Verificar se a resposta é negativa (por exemplo, com base em um campo "success" ou "error" no objeto de resposta)
+            if (response.success !== true) {
+              // Resposta negativa: exibir alerta pedindo para verificar as credenciais
+              alert('Credenciais inválidas. Verifique o CPF e o token de validação.');
+            }
+            else {
+                fetchUserByUsername(cookies.username, cookies.carerToken)
+                .then((carer_data) => {
+                    setIdososCuidados(carer_data.idososCuidados);
+                    setSelectOptions(carer_data.idososCuidados.map((idoso, index) => (
+                        <option value={index+1}>{`${idoso.nome} - ${getAge(idoso.dataNasc)} anos - ${idoso.sexo}`}</option>
+                        ))
+                    );
+                })
+                .catch((error) => {
+                    console.log(error.message);
+                });
+            }
+          })
+          .catch((error) => {
+            console.log('Erro ao atualizar descrição:', error.message);
+          });
+      };
 
     const [selectedIdoso, setSelectedIdoso] = useState(0);
     const [sections, setSections] = useState([]);
