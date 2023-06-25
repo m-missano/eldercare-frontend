@@ -71,30 +71,30 @@ function FollowCaregiver() {
 
     const updateDescription = (id, newDescription, newName) => {
         const updatedSections = sections.map((section) => {
-           console.log("id que veio",id); 
-          if (section.id === id) {
-            const formattedData = {
-              categoriaAtividade: section.name,
-              descricao: newDescription,
-              id: idososCuidados[selectedIdoso - 1].rotinas[section.id].id,
-            };
-      
-            updateActivity(idososCuidados[selectedIdoso - 1].id, formattedData.id, cookies.carerToken, formattedData)
-              .then((response) => {
-                console.log('Descrição atualizada com sucesso!');
-              })
-              .catch((error) => {
-                console.log('Erro ao atualizar descrição:', error.message);
-              });
-      
-            return {
-              ...section,
-              description: newDescription,
-            };
-          }
-          return section;
-        });
-      
+            console.log("id que veio",id);
+            if (section.id === id) {
+                const formattedData = {
+                    categoriaAtividade: section.name,
+                    descricao: newDescription,
+                    id: section.id+1,
+                };
+        
+                updateActivity(idososCuidados[selectedIdoso - 1].id, formattedData.id, cookies.carerToken, formattedData)
+                .then((response) => {
+                    console.log('Descrição atualizada com sucesso!');
+                })
+                .catch((error) => {
+                    console.log('Erro ao atualizar descrição:', error.message);
+                });
+        
+                return {
+                    ...section,
+                    description: newDescription,
+                };
+            }
+            return section;
+            });
+
         setSections(updatedSections);
     };
 
