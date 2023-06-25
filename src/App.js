@@ -15,6 +15,7 @@ import Updater from './pages/Updater';
 import PageProfile from './pages/PageProfile';
 import FollowCaregiver from './pages/FollowCaregiver';
 import FollowPatient from './pages/FollowPatient';
+import PagePatient from './pages/PagePatient';
 import { useCookies } from 'react-cookie';
 
 function App() {
@@ -44,7 +45,7 @@ function App() {
               <Route path="/acompanhamento" element={<FollowPatient />} />
               <Route path="/buscar" element={<Buscar />} />
               <Route path="/updater" element={<Updater />} />
-              <Route path="/profile" element={<PageProfile />} />
+              <Route path="/profile" element={<PagePatient />} />
               {/* Outras rotas específicas para o Paciente */}
             </>
           )}

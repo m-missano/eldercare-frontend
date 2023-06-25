@@ -108,6 +108,11 @@ function FollowCaregiver() {
             name: activityName,
             description: activityDescription,
         };
+        const newData = {
+            id: newId,
+            categoriaAtividade: activityName,
+            descricao: activityDescription,
+        };
         setSections([...sections, newSection]);
         setActivityName("");
         setActivityDescription("");
@@ -122,7 +127,7 @@ function FollowCaregiver() {
                         const formattedData = {
                             categoriaAtividade: section.name,
                             descricao: newDescription,
-                            id: activity_data[section.id].id,
+                            id: activity_data[id].id,
                         };
                         
                         updateActivity(idososCuidados[selectedIdoso - 1].id, formattedData.id, cookies.carerToken, formattedData)
@@ -166,24 +171,28 @@ function FollowCaregiver() {
         }
     }, [cookies]);
 
-    useEffect(() => {
+    const updateSections = () => {
         if (selectedIdoso !== 0) {
-            setNome(idososCuidados[selectedIdoso-1].nome);
-            const elderID = idososCuidados[selectedIdoso-1].id;
-            fetchActivityByElderID(elderID, cookies.carerToken)
+          setNome(idososCuidados[selectedIdoso - 1].nome);
+          const elderID = idososCuidados[selectedIdoso - 1].id;
+          fetchActivityByElderID(elderID, cookies.carerToken)
             .then((activity_data) => {
-                console.log("atv:",activity_data)
-                const activities = activity_data.map((activity, index) => ({
-                    id: index,
-                    name: activity.categoriaAtividade,
-                    description: activity.descricao,
-                }));
-                setSections(activities);
+              console.log("atv:", activity_data);
+              const activities = activity_data.map((activity, index) => ({
+                id: index,
+                name: activity.categoriaAtividade,
+                description: activity.descricao,
+              }));
+              setSections(activities);
             })
             .catch((error) => {
-                console.log(error.message);
+              console.log(error.message);
             });
         }
+      };
+
+    useEffect(() => {
+        updateSections();
     }, [selectedIdoso]);
 
     const submitActivity = () => {
@@ -194,8 +203,9 @@ function FollowCaregiver() {
     
         addActivity(idososCuidados[selectedIdoso-1].id, cookies.carerToken, body)
         .then((response) => {
-            console.log("response",response); 
+            console.log("add Idosos",idososCuidados[selectedIdoso-1].rotinas); 
             if (response) {
+                updateSections();
                 addSection();
                 handleClose();
             }
@@ -213,12 +223,12 @@ function FollowCaregiver() {
     const removeActivity = (id) => {
         fetchActivityByElderID(idososCuidados[selectedIdoso - 1].id, cookies.carerToken)
         .then((activity_data) => {
-            console.log("id do veio: AROOZZZZ", idososCuidados[selectedIdoso-1].id);
+            console.log("id do veio: AROOZZZZ", idososCuidados[selectedIdoso-1]);
             console.log("activity id: ", activity_data[id].id);
             deleteActivity(idososCuidados[selectedIdoso-1].id, activity_data[id].id, cookies.carerToken)
-            .then((response) => {
-                console.log("response",response); 
-                if (response) {
+            .then((response) => { 
+                if (response.ok) {
+                    updateSections();
                     removeSection(id);
                     handleClose();
                 }

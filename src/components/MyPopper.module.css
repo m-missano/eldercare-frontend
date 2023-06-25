@@ -1,0 +1,23 @@
+.info_btn {
+    width: 30px;
+    height: 30px;
+    border: solid 3px #4bb8c0;
+    font-size: 1.3rem;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+}
+
+.info_btn:hover {
+    background-color: #4bb8c0;
+    color: #fff;
+}
+
+.box {
+    margin-top: 5px;
+    border: 1; 
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+    height: 15px;
+    padding: 10px;
+    color: #2b838a;
+    font-size: 1.2rem;
+}
