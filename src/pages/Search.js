@@ -11,7 +11,7 @@ import MediaCard from "../components/MediaCard";
 function Search() {
     const [selecionado, setSelecionado] = useState(false);
     const [cookies] = useCookies(['carerToken', 'patientToken', 'username'])
-    const ids = [1,9];
+    const ids = [];
     const [listaCarers, setListaCarers] = useState([]);
 
     useEffect(() => {
@@ -21,7 +21,7 @@ function Search() {
         } else {
     
         }
-    }, [cookies.carerToken]);
+    }, [cookies]);
     
     const addCarer = (carer) => {
         setListaCarers([...listaCarers, carer]);

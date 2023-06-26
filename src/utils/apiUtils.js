@@ -222,7 +222,7 @@ export const fetchElderByCPF = (CPF, token) => {
     })
     .catch((err) => console.log(err.message));
 };
-
+/**/ 
 export const setCarerForElder = (username, CPF, token, tokenJWT) => {
   return fetch(`http://localhost:8080/api/idoso/${username}/${CPF}/${token}`, {
     method: "POST",
@@ -259,3 +259,15 @@ export const updateMedicCond = async (idosoid, token, body) => {
       console.log(err.message);
   }
 }
+
+export const setImage = (idPessoa, file) => {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  return fetch(`http://localhost:8080/api/usuario/imagem/upload/${idPessoa}`, {
+    method: 'POST',
+    body: formData,
+  })
+    .then((response) => response.json())
+    .catch((err) => console.log(err.message));
+};

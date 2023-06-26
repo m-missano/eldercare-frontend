@@ -7,11 +7,13 @@ import styles from "./LoginButton.module.css";
 import BackgroundLetterAvatar from './BackgroundLetterAvatar';
 import { fetchUserByUsername } from "../utils/apiUtils";
 import { useCookies } from "react-cookie";
+import { Avatar } from 'primereact/avatar';
 
 function LoginButton({isLoggedIn, isLoggedOut}) {
     const [cookies] = useCookies(['carerToken', 'patientToken', 'username'])
     const navigate = useNavigate();
     const [nome, setNome] = useState('');
+    const [path, setPath] = useState('');
 
     useEffect(() => {
         let token;
@@ -25,8 +27,9 @@ function LoginButton({isLoggedIn, isLoggedOut}) {
             }
             fetchUserByUsername(cookies.username, token)
             .then((username_data) => {
-                console.log("username:", username_data)
+                console.log("username_data:", username_data)
                 setNome(username_data.nome);
+                setPath(username_data.path);
             })
         } else {
           /*
@@ -56,11 +59,11 @@ function LoginButton({isLoggedIn, isLoggedOut}) {
         {isLoggedIn && (
         <div className={styles.header_actions}>
         <button className={styles.header_login} onClick={toggleLoginBar}>
-            <BackgroundLetterAvatar name = {nome} />
+            <BackgroundLetterAvatar name={nome} />
         </button>
         </div>
         )}
-        {isLoggedIn && isLoginBarOpen && <LoginBar username={cookies.username} nome={nome}/>}
+        {isLoggedIn && isLoginBarOpen && <LoginBar username={cookies.username} nome={nome} path={path}/>}
         </div>
     );
 }

@@ -18,6 +18,7 @@ function PageProfile() {
 
     const [open, setOpen] = useState(false);
     const [userData, setUserData] = useState(null);
+    const [path, setPath] = useState('');
 
     useEffect(() => {
         if (cookies.carerToken) {
@@ -94,7 +95,11 @@ function PageProfile() {
 
             <div className={`${styles.page_container} ${styles.customFont}`}>
                 <div className={styles.caregiver_left_content}>
+                {userData.path ? (
+                <img className={styles.caregiver_image} src={require(userData.path)}></img>
+                ) : (
                 <div className={styles.caregiver_image}></div>
+                )}
                 <div className={styles.caregiver_contact}>
                     <div className={styles.address}>
                         < LocationOnOutlinedIcon className={styles.location_icon}/>

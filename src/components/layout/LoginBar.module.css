@@ -95,3 +95,9 @@
     top: 239px;
     right: 185px;
 }
+
+.pic{
+    padding-bottom: 0;
+    height: 60px;
+    width: 60px;
+}

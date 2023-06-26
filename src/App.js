@@ -48,7 +48,7 @@ function App() {
               <Route path="/buscar" element={<Buscar />} />
               <Route path="/updater" element={<Updater />} />
               <Route path="/profile" element={<PagePatient />} />
-              <Route path="/carer/" element={<CarerPresentation />} />
+              <Route path="/carer" element={<CarerPresentation />} />
               {/* Outras rotas específicas para o Paciente */}
             </>
           )}

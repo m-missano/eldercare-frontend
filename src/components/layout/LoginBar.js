@@ -6,7 +6,9 @@ import BackgroundLetterAvatar from '../BackgroundLetterAvatar';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import EditIcon from '@mui/icons-material/Edit';
 import LogoutIcon from '@mui/icons-material/Logout';
-function LoginBar({ username, nome}){
+import Avatar from '@mui/joy/Avatar';
+
+function LoginBar({ username, nome, path}){
 
   const [cookies, setCookie, removeCookie] = useCookies(['username', 'carerToken', 'patientToken']);
 
@@ -19,7 +21,7 @@ function LoginBar({ username, nome}){
   return(
     <div className={styles.login_container}>
         <div className={styles.login_header}>
-            <BackgroundLetterAvatar name = {nome} />
+              <BackgroundLetterAvatar name={nome} />
            <h1> {username} </h1> 
         </div>
         <ul className={styles.list}>

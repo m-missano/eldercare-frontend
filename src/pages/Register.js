@@ -8,7 +8,7 @@ import validator from 'validator';
 import Profile from "../components/Profile";
 import { cpf } from "cpf-cnpj-validator";
 import { removeNonNumeric } from "../utils/Utils";
-import { addUser, addElder, deleteUser, fetchUsers } from "../utils/apiUtils";
+import { addUser, addElder, deleteUser, fetchUsers, setImage } from "../utils/apiUtils";
 
 function Register() {
     const { register, 
@@ -18,13 +18,17 @@ function Register() {
         } = useForm({delayError: 1500});
 
     const navigate = useNavigate();
-    
+    const [selectedImage, setSelectedImage] = useState(null);
     const [userType, setUserType] = useState("procuroCuidador");
     //userType = "procuroCuidador"
     //userType = "souCuidador"
     const [addElderSection, setAddSection] = useState();
     //AddElderSection = true : Cadastrando para outra pessoa
     //AddElderSection = false: Cadastrando para mim
+
+    const handleImageSelect = (file) => {
+        setSelectedImage(file);
+    };
 
     const onSubmit = (data) => {
         console.log(data)
@@ -62,7 +66,14 @@ function Register() {
                 .then((client_data) => {
                 console.log("ID CuidadorDB: " + client_data)
                 alert('Cuidador registrado com sucesso!');
-                    navigate('/login');
+                if (selectedImage) {
+                    setImage(client_data, selectedImage)
+                      .then((response) => {
+                        console.log(response);
+                      })
+                      .catch((err) => console.log(err.message));
+                  }
+                navigate('/login');
             })
             .catch((err) => console.log(err.message))
         }
@@ -108,6 +119,13 @@ function Register() {
         
                         addElder(client_id, formattedDataElder)            
                             .then(() => {
+                                if (selectedImage) {
+                                    setImage(client_id, selectedImage)
+                                      .then((response) => {
+                                        console.log(response);
+                                      })
+                                      .catch((err) => console.log(err.message));
+                                }
                                 alert('Registrado com sucesso!');
                                 navigate('/login');
                         })
@@ -132,6 +150,13 @@ function Register() {
         
                         addElder(client_id, formattedDataMyself)            
                             .then(() => {
+                                if (selectedImage) {
+                                    setImage(client_id, selectedImage)
+                                      .then((response) => {
+                                        console.log(response);
+                                      })
+                                      .catch((err) => console.log(err.message));
+                                }
                                 alert('Registrado com sucesso!');
                                 navigate('/login');
                         })
@@ -162,7 +187,7 @@ function Register() {
         <div className={`${styles.page_container} ${styles.customFont}`}>
             <div className={styles.form_box}>
                 <div className={styles.profile_area}>
-                    <Profile />
+                    <Profile onSelectFile={handleImageSelect} />
                 </div>
                 <div className={styles.option_box}>
                     <div className={styles.patient_option}>
