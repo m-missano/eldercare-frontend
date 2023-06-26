@@ -2,7 +2,7 @@
 
 .search_container {
     display: flex;
-    min-height: 100vh;
+    min-height: 85vh;
 }
 
 .header_container {
@@ -19,15 +19,14 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    background-color: rgba(0, 255, 149, 0.1);
-    background-position: center;
-    background-size: cover;
+    max-height: 750px;
+    background-color: #e3fbf3;
 }
 
 .search_left {
     display: flex;
     width: 100%;
-    background-color: transparent;
+    background-color: white;
     align-items: center;
     border-radius: 60px;
     padding: 10px 20px;
@@ -69,7 +68,7 @@
 }
 
 .search_right .select_limit {
-    background-color: transparent;
+    background-color: #ffff;
     color:#219CA4;
     outline: none;
     font-size: 20px;
@@ -87,6 +86,7 @@
     background-position: right center;
     background-size: 35px;
     padding-right: 25px;
+    border-radius: 20px;
 }
 
 /*.icon_container {
@@ -144,21 +144,15 @@ button:hover {
 .page_content {
     width: 100%;
     height: 100%;    
-}
-
-.filter_box {
-    background-color: transparent;
-    color: #219CA4;
-    margin-left: 20px;
-    text-align: left;
-    border-right: 2px solid #219CA4;
+    background-color: #e3fbf3;
 }
 
 .caregiver_slots {
-    display: flex;
-    flex-wrap: wrap;
-    column-gap: 30px;
-    justify-self: center;
+    margin-left: 30px;
+    overflow: auto;
+    height: 680px;
+    white-space: pre-line;
+    margin-right: 13px;
 }
 
 .caregiver_box {
@@ -179,4 +173,30 @@ button:hover {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+}
+
+.caregiver_slots::-webkit-scrollbar {
+    width: 8px; 
+}
+
+.caregiver_slots::-webkit-scrollbar-thumb {
+    background-color: #219CA4; 
+    border-radius: 4px; 
+}
+
+.caregiver_slots::-webkit-scrollbar-track {
+    background-color: transparent; 
+    outline: 2px solid #219CA4;
+    border-radius: 4px;
+}
+
+.caregiver_slots::-webkit-scrollbar-thumb:hover {
+    background-color: #197780; 
+}
+
+.caregiver_boxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-right: 10px;
 }

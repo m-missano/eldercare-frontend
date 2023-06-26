@@ -194,7 +194,7 @@ export const fetchAuthorization = (body) => {
 };
 
 export const fetchUserById = (userId, token) => {
-  return fetch(`http://localhost:8080/api/usuario/${userId}`, {
+  return fetch(`http://localhost:8080/api/usuario/busca/${userId}`, {
     headers: {
       'Authorization': token,
     },

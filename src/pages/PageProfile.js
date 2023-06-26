@@ -158,7 +158,7 @@ function PageProfile() {
                     </div>
                     </Modal>
                 </div>
-                <p className={styles.description}>{userData.descricao}</p>
+                <p className={styles.description}><p>{userData.descricao}</p></p>
                 </div>
             </div>
 

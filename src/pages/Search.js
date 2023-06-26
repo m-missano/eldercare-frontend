@@ -6,11 +6,12 @@ import { useState, useEffect } from 'react';
 import { ReactComponent as Icone } from "../expand.svg";
 import { useCookies } from 'react-cookie';
 import { fetchUserById } from "../utils/apiUtils";
+import MediaCard from "../components/MediaCard";
 
 function Search() {
     const [selecionado, setSelecionado] = useState(false);
     const [cookies] = useCookies(['carerToken', 'patientToken', 'username'])
-    const ids = [15,18];
+    const ids = [1,9];
     const [listaCarers, setListaCarers] = useState([]);
 
     useEffect(() => {
@@ -21,7 +22,11 @@ function Search() {
     
         }
     }, [cookies.carerToken]);
-      
+    
+    const addCarer = (carer) => {
+        setListaCarers([...listaCarers, carer]);
+    };
+
     const fetchCuidadores = async () => {
         let token;
         try {
@@ -35,14 +40,10 @@ function Search() {
           const cuidadores = await Promise.all(promises);
       
           setListaCarers(cuidadores);
-          console.log("listCarers",listaCarers);
+          console.log("lista",cuidadores);
         } catch (error) {
           console.log(error.message);
         }
-    };
-
-    const handleIconeClick = () => {
-      setSelecionado(true);
     };
 
     return (
@@ -75,94 +76,17 @@ function Search() {
             <div className={styles.page_content}>
                 
                 <div className={styles.caregiver_slots}>
-                    <div className={styles.caregiver_box}>
-                        <div className={styles.caregiver_content}>
-                            <div className={styles.caregiver_image}></div>
-                            <div className={styles.caregiver_description}>
-                                <p>ENFERMEIRA JOY</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={styles.caregiver_box}>
-                        <div className={styles.caregiver_content}>
-                            <div className={styles.caregiver_image}></div>
-                            <div className={styles.caregiver_description}>
-                                <p>ENFERMEIRA JOY</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={styles.caregiver_box}>
-                        <div className={styles.caregiver_content}>
-                            <div className={styles.caregiver_image}></div>
-                            <div className={styles.caregiver_description}>
-                                <p>ENFERMEIRA JOY</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={styles.caregiver_box}>
-                        <div className={styles.caregiver_content}>
-                            <div className={styles.caregiver_image}></div>
-                            <div className={styles.caregiver_description}>
-                                <p>ENFERMEIRA JOY</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={styles.caregiver_box}>
-                        <div className={styles.caregiver_content}>
-                            <div className={styles.caregiver_image}></div>
-                            <div className={styles.caregiver_description}>
-                                <p>ENFERMEIRA JOY</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={styles.caregiver_box}>
-                        <div className={styles.caregiver_content}>
-                            <div className={styles.caregiver_image}></div>
-                            <div className={styles.caregiver_description}>
-                                <p>ENFERMEIRA JOY</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={styles.caregiver_box}>
-                        <div className={styles.caregiver_content}>
-                            <div className={styles.caregiver_image}></div>
-                            <div className={styles.caregiver_description}>
-                                <p>ENFERMEIRA JOY</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={styles.caregiver_box}>
-                        <div className={styles.caregiver_content}>
-                            <div className={styles.caregiver_image}></div>
-                            <div className={styles.caregiver_description}>
-                                <p>ENFERMEIRA JOY</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={styles.caregiver_box}>
-                        <div className={styles.caregiver_content}>
-                            <div className={styles.caregiver_image}></div>
-                            <div className={styles.caregiver_description}>
-                                <p>ENFERMEIRA JOY</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={styles.caregiver_box}>
-                        <div className={styles.caregiver_content}>
-                            <div className={styles.caregiver_image}></div>
-                            <div className={styles.caregiver_description}>
-                                <p>ENFERMEIRA JOY</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={styles.caregiver_box}>
-                        <div className={styles.caregiver_content}>
-                            <div className={styles.caregiver_image}></div>
-                            <div className={styles.caregiver_description}>
-                                <p>ENFERMEIRA JOY</p>
-                            </div>
-                        </div>
-                    </div>
+                    <div className={styles.caregiver_boxes}>
+                        {listaCarers.map((cuidador) => (
+                            <MediaCard
+                            nome={cuidador.nome}
+                            cidade={cuidador.endereco.cidade}
+                            uf={cuidador.endereco.uf}
+                            descricao={cuidador.descricao}
+                            id={cuidador.idPessoa}
+                            />
+                        ))}
+                    </div> 
                 </div>
                 
             </div>

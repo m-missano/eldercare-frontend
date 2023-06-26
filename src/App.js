@@ -16,6 +16,7 @@ import PageProfile from './pages/PageProfile';
 import FollowCaregiver from './pages/FollowCaregiver';
 import FollowPatient from './pages/FollowPatient';
 import PagePatient from './pages/PagePatient';
+import CarerPresentation from './pages/CarerPresentation';
 import { useCookies } from 'react-cookie';
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
               <Route path="/buscar" element={<Buscar />} />
               <Route path="/updater" element={<Updater />} />
               <Route path="/profile" element={<PageProfile />} />
+              <Route path="/carer" element={<CarerPresentation />} />
               {/* Outras rotas específicas para o Cuidador */}
             </>
           )}
@@ -46,6 +48,7 @@ function App() {
               <Route path="/buscar" element={<Buscar />} />
               <Route path="/updater" element={<Updater />} />
               <Route path="/profile" element={<PagePatient />} />
+              <Route path="/carer/" element={<CarerPresentation />} />
               {/* Outras rotas específicas para o Paciente */}
             </>
           )}

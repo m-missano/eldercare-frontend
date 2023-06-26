@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Avatar, IconButton, Modal, Button } from '@material-ui/core';
 import { AccountCircle, AddCircleOutline, Close } from '@material-ui/icons';
 import styles from './Profile.module.css';
 
 const Profile = () => {
   const [open, setOpen] = useState(false);
+  const fileInputRef = useRef(null);
 
   const handleOpen = () => {
     setOpen(true);
@@ -37,8 +38,9 @@ const Profile = () => {
             </IconButton>
         </div>
         <div className={styles.dashedBorder}>
-            <AddCircleOutline
-            className={styles.dashedIcon}
+           <AddCircleOutline
+              className={styles.dashedIcon}
+              onClick={() => fileInputRef.current.click()}
             />
             <p className={styles.dashedText}>Insira um arquivo</p>
         </div>
@@ -52,6 +54,17 @@ const Profile = () => {
         </Button>
         </div>
       </Modal>
+      <input
+        type="file"
+        accept="image/*"
+        ref={fileInputRef}
+        style={{ display: 'none' }}
+        onChange={(e) => {
+          // Lógica para lidar com o arquivo selecionado
+          const selectedFile = e.target.files[0];
+          // Faça o que for necessário com o arquivo selecionado
+        }}
+      />
     </div>
   );
 };

@@ -109,6 +109,7 @@
 .dashedBorder .dashedIcon {
     font-size: 50px;
     color: #ccc;
+    cursor: pointer;
 }
 
 .modal .dashedText {

@@ -1,0 +1,17 @@
+.description {
+    height: 70px;
+}
+
+.location {
+    display: flex;
+    align-items: center;
+}
+
+.card {
+    max-width: 345px;
+    height: 400px;
+}
+
+.cardMedia {
+    height: 165px;
+}
