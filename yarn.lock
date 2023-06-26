@@ -2635,6 +2635,7 @@
   dependencies:
     "@babel/runtime" "^7.21.0"
 
+<<<<<<< Updated upstream
 "@mui/joy@^5.0.0-alpha.85":
   version "5.0.0-alpha.85"
   resolved "https://registry.yarnpkg.com/@mui/joy/-/joy-5.0.0-alpha.85.tgz#7169a698250a0cdbc3c9b51b5468eb1fc986209b"
@@ -2651,6 +2652,8 @@
     prop-types "^15.8.1"
     react-is "^18.2.0"
 
+=======
+>>>>>>> Stashed changes
 "@mui/material@^5.13.6":
   version "5.13.6"
   resolved "https://registry.npmjs.org/@mui/material/-/material-5.13.6.tgz"
@@ -10470,6 +10473,7 @@ uri-js@^4.2.2:
   dependencies:
     punycode "^2.1.0"
 
+<<<<<<< Updated upstream
 url-loader@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/url-loader/-/url-loader-4.1.1.tgz#28505e905cae158cf07c92ca622d7f237e70a4e2"
@@ -10479,6 +10483,8 @@ url-loader@^4.1.1:
     mime-types "^2.1.27"
     schema-utils "^3.0.0"
 
+=======
+>>>>>>> Stashed changes
 url-parse@^1.5.3:
   version "1.5.10"
   resolved "https://registry.npmjs.org/url-parse/-/url-parse-1.5.10.tgz"

@@ -1,6 +1,8 @@
 .header_container {
+    z-index: 50;
     position: fixed;
     width: 100vw;
+    height: 123px;
     display: flex;
     background-color: #219CA4;
 }

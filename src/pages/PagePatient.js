@@ -38,7 +38,7 @@ function PagePatient() {
     
     const handleSave = () => {
         const formattedDataElder = {
-            condicoesMedicas: userData.idososRelacionados[0].condicoesMedicas,
+            condicoesMedicas: userData.idososRelacionados[0].condicoesMedicas
         }; 
 
         console.log(formattedDataElder.descricao)
@@ -68,7 +68,7 @@ function PagePatient() {
             </div>
 
             <div className={`${styles.page_container} ${styles.customFont}`}>
-                <div className={styles.general_info}>
+                <div className={styles.elder_left_content}>
                     <h1>{userData.idososRelacionados[0].nome} ({getAge(userData.idososRelacionados[0].dataNasc)} anos)</h1>
                     <p className={styles.elder_gender}><strong>Sexo: </strong>{userData.idososRelacionados[0].sexo}</p>
                     <div className={styles.address}>
@@ -85,12 +85,12 @@ function PagePatient() {
                 </div>
 
                 <div className={styles.elder_right_content}>
-                        <Modal
-                        open={open}
-                        onClose={handleClose}
-                        className={styles.modal}
-                        BackdropProps={{ onClick: handleClose }}
-                        >
+                    <Modal
+                    open={open}
+                    onClose={handleClose}
+                    className={styles.modal}
+                    BackdropProps={{ onClick: handleClose }}
+                    >
                         <div className={styles.modalContent}>
                             <div className={styles.modalHeader}>
                             <h2 className={styles.modalTitle}>EDITAR CONDICOES MEDICAS</h2>
@@ -134,7 +134,7 @@ function PagePatient() {
                             </Button>
                             </div>
                         </div>
-                        </Modal>
+                    </Modal>
 
                     <div className={styles.description_header}>
                         <h2>Informações Médicas Complementares</h2>

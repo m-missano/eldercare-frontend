@@ -20,7 +20,6 @@ function MediaCard( { nome, cidade, uf, descricao, id } ) {
 
 
   if (nomeArray.length > 2){
-    console.log(nomeArray[0])
     nomeFormatado = nomeArray[0];
     sobrenomeFormatado = nomeArray[nomeArray.length-1];
     nomeFormatado = nomeFormatado+" "+sobrenomeFormatado;

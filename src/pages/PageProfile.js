@@ -110,63 +110,62 @@ function PageProfile() {
                 </div>
                 </div>
                 <div className={styles.caregiver_right_content}>
-                <div className={styles.caregiver_header}>
-                    <h1>{userData.nome}</h1>
-                    <IconButton onClick={handleOpen} className={styles.editButton}>
-                    <EditIcon
-                        fontSize="large"
-                        className={styles.editIcon}
-                    />
-                    </IconButton>
-                    <Modal
-                    open={open}
-                    onClose={handleClose}
-                    className={styles.modal}
-                    BackdropProps={{ onClick: handleClose }}
-                    >
-                    <div className={styles.modalContent}>
-                        <div className={styles.modalHeader}>
-                        <h2 className={styles.modalTitle}>EDITAR PERFIL</h2>
-                        <IconButton onClick={handleClose} className={styles.closeButton}>
-                            <CancelOutlinedIcon className={styles.closeIcon} />
+                    <div className={styles.caregiver_header}>
+                        <h1>{userData.nome}</h1>
+                        <IconButton onClick={handleOpen} className={styles.editButton}>
+                        <EditIcon
+                            fontSize="large"
+                            className={styles.editIcon}
+                        />
                         </IconButton>
-                        </div>
-                        <div className={styles.form_group}>
-                        <h3>Descrição:</h3>
-                        <label>
-                            Insira uma descrição personalizada para que seu perfil chame mais atenção nas buscas.
-                        </label>
-                        <textarea 
-                            value={userData.descricao} 
-                            onChange={(e) => setUserData({ ...userData, descricao: e.target.value })} 
-                            placeholder="Capriche, seu danado" id="descricao">
-                        </textarea>
-                        </div>
-                        <div className={styles.buttons_container}>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            className={styles.cancelButton}
-                            onClick={handleClose}
+                        <Modal
+                        open={open}
+                        onClose={handleClose}
+                        className={styles.modal}
+                        BackdropProps={{ onClick: handleClose }}
                         >
-                            Cancelar
-                        </Button>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            className={styles.saveButton}
-                            onClick={handleSave}
-                        >
-                            Salvar
-                        </Button>
+                        <div className={styles.modalContent}>
+                            <div className={styles.modalHeader}>
+                            <h2 className={styles.modalTitle}>EDITAR PERFIL</h2>
+                            <IconButton onClick={handleClose} className={styles.closeButton}>
+                                <CancelOutlinedIcon className={styles.closeIcon} />
+                            </IconButton>
+                            </div>
+                            <div className={styles.form_group}>
+                            <h3>Descrição:</h3>
+                            <label>
+                                Insira uma descrição personalizada para que seu perfil chame mais atenção nas buscas.
+                            </label>
+                            <textarea 
+                                value={userData.descricao} 
+                                onChange={(e) => setUserData({ ...userData, descricao: e.target.value })} 
+                                placeholder="Capriche, seu danado" id="descricao">
+                            </textarea>
+                            </div>
+                            <div className={styles.buttons_container}>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                className={styles.cancelButton}
+                                onClick={handleClose}
+                            >
+                                Cancelar
+                            </Button>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                className={styles.saveButton}
+                                onClick={handleSave}
+                            >
+                                Salvar
+                            </Button>
+                            </div>
                         </div>
+                        </Modal>
                     </div>
-                    </Modal>
-                </div>
-                <p className={styles.description}><p>{userData.descricao}</p></p>
+                    <p className={styles.description}>{userData.descricao}</p>
                 </div>
             </div>
-
             <div className={styles.footer_section}>
                 <Footer />
             </div>
