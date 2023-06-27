@@ -5,11 +5,12 @@ import Footer from "../components/Footer";
 import { Modal, IconButton, Button } from "@material-ui/core";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import EditIcon from "@mui/icons-material/Edit";
-import { fetchUserByUsername, updateMedicCond } from "../utils/apiUtils";
+import { fetchUserByUsername, updateMedicCond, fetchImage } from "../utils/apiUtils";
 import { useCookies } from "react-cookie";
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import { getAge } from "../utils/Utils";
 import MyPopper from "../components/MyPopper";
+import AccountCircle from '@mui/icons-material/AccountCircle';
 
 function PagePatient() {
     const [cookies, setCookies] = useCookies([
@@ -26,6 +27,23 @@ function PagePatient() {
             setUserData(data)
         );
         }
+
+        let token;
+        if (cookies.carerToken) {
+            token = cookies.carerToken;
+
+        } else if (cookies.patientToken) {
+            token = cookies.patientToken;
+        }
+        fetchImage(cookies.username, token).then((imageUrl) => {
+                const divElement = document.getElementById('profile_pic2');
+                console.log(divElement)
+                divElement.style.backgroundImage = `url(${imageUrl})`;
+        })
+        .catch((error) => {
+            console.log(error.message);
+        });
+
     }, []);
 
     const handleOpen = () => {
@@ -69,6 +87,11 @@ function PagePatient() {
 
             <div className={`${styles.page_container} ${styles.customFont}`}>
                 <div className={styles.elder_left_content}>
+                    {userData.path ? (
+                    <div id="profile_pic2" className={styles.profile_image}></div>
+                    ) : (
+                    <div className={styles.profile_image}><AccountCircle className={styles.button_icon} /></div>
+                    )}
                     <h1>{userData.idososRelacionados[0].nome} ({getAge(userData.idososRelacionados[0].dataNasc)} anos)</h1>
                     <p className={styles.elder_gender}><strong>Sexo: </strong>{userData.idososRelacionados[0].sexo}</p>
                     <div className={styles.address}>

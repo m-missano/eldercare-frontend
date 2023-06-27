@@ -5,9 +5,10 @@ import Footer from "../components/Footer";
 import { Modal, IconButton, Button } from "@material-ui/core";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import EditIcon from "@mui/icons-material/Edit";
-import { fetchUserById, updateUser } from "../utils/apiUtils";
+import { fetchUserById, updateUser, fetchImage } from "../utils/apiUtils";
 import { useCookies } from "react-cookie";
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
+import AccountCircle from '@mui/icons-material/AccountCircle';
 
 function CarerPresentation() {
     const [cookies, setCookies] = useCookies([
@@ -18,18 +19,41 @@ function CarerPresentation() {
 
     const [userData, setUserData] = useState(null);
 
+    
     useEffect(() => {
         let carerId = localStorage.getItem('currentCarerId')
         if (cookies.carerToken) {
             fetchUserById(carerId, cookies.carerToken).then((data) => {
+                
+                fetchImage(data.login, cookies.carerToken).then((imageUrl) => {
+                    const divElement = document.getElementById('carer_pic');
+                    console.log(divElement)
+                    divElement.style.backgroundImage = `url(${imageUrl})`;
+                })
+                .catch((error) => {
+                    console.log(error.message);
+                });   
+
             setUserData(data);
         });
         } else if (cookies.patientToken) {
-            fetchUserById(carerId, cookies.patientToken).then((data) =>
-            setUserData(data)
+            fetchUserById(carerId, cookies.patientToken).then((data) => {
+                
+                fetchImage(data.login, cookies.patientToken).then((imageUrl) => {
+                    const divElement = document.getElementById('carer_pic');
+                    console.log(divElement)
+                    divElement.style.backgroundImage = `url(${imageUrl})`;
+                })
+                .catch((error) => {
+                    console.log(error.message);
+                });   
+                setUserData(data)
+            }
         );
         }
     }, []);
+
+
 
     // Renderização condicional quando userData estiver definido
     if (userData === null) {
@@ -44,14 +68,21 @@ function CarerPresentation() {
 
             <div className={`${styles.page_container} ${styles.customFont}`}>
                 <div className={styles.caregiver_left_content}>
-                <div className={styles.caregiver_image}></div>
+                {userData.path ? (
+                <div id="carer_pic" className={styles.caregiver_image}></div>
+                ) : (
+                <div className={styles.caregiver_image}><AccountCircle className={styles.button_icon} /></div>
+                )}
                 <div className={styles.caregiver_contact}>
-                    <div className={styles.address}>
+                <div className={styles.address}>
+                        <div>
+                            <strong>Endereço: </strong>
+                            <span>{userData.endereco.cidade}, {userData.endereco.uf}</span>
+                        </div>
                         < LocationOnOutlinedIcon className={styles.location_icon}/>
-                        <span>{userData.endereco.cidade}, {userData.endereco.uf}</span>
                     </div>
-                    <p>{userData.contato.email}</p>
-                    <p>{userData.contato.celular}</p>
+                    <p className={styles.elder_contact}><strong>Email: </strong>{userData.contato.email}</p>
+                    <p className={styles.elder_contact}><strong>Celular: </strong>{userData.contato.celular}</p>
                 </div>
                 </div>
                 <div className={styles.caregiver_right_content}>

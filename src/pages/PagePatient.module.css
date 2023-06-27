@@ -36,6 +36,16 @@
     margin-right: 40px;
 }
 
+.profile_image {
+    width: 350px;
+    height: 350px;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border-radius: 40px;
+    padding-bottom: 10px;
+}
+
 .elder_right_content h2 {
     color: black;
 }
@@ -255,4 +265,12 @@
 
 .buttons_container .saveButton:hover {
     background-color: #219CA4;
+}
+
+.button_icon {
+    background-color: #219CA4;
+    border-radius: 40px;
+    width: 100%;
+    height: 100%;
+    color: #fefefefe;
 }

@@ -5,9 +5,10 @@ import Footer from "../components/Footer";
 import { Modal, IconButton, Button } from "@material-ui/core";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import EditIcon from "@mui/icons-material/Edit";
-import { fetchUserByUsername, updateUser } from "../utils/apiUtils";
+import { fetchUserByUsername, updateUser, fetchImage} from "../utils/apiUtils";
 import { useCookies } from "react-cookie";
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
+import AccountCircle from '@mui/icons-material/AccountCircle';
 
 function PageProfile() {
     const [cookies, setCookies] = useCookies([
@@ -81,6 +82,25 @@ function PageProfile() {
         }
     };    
 
+    useEffect(() =>{
+        let token;
+        if (cookies.carerToken) {
+            token = cookies.carerToken;
+
+        } else if (cookies.patientToken) {
+            token = cookies.patientToken;
+        }
+        fetchImage(cookies.username, token).then((imageUrl) => {
+                const divElement = document.getElementById('profile_pic1');
+                console.log(divElement)
+                divElement.style.backgroundImage = `url(${imageUrl})`;
+            })
+            .catch((error) => {
+                console.log(error.message);
+            });
+    }, []);
+
+
     // Renderização condicional quando userData estiver definido
     if (userData === null) {
         return <div>Carregando...</div>;
@@ -96,17 +116,20 @@ function PageProfile() {
             <div className={`${styles.page_container} ${styles.customFont}`}>
                 <div className={styles.caregiver_left_content}>
                 {userData.path ? (
-                <img className={styles.caregiver_image} src={require(userData.path)}></img>
+                <div id="profile_pic1" className={styles.caregiver_image}></div>
                 ) : (
-                <div className={styles.caregiver_image}></div>
+                <div className={styles.caregiver_image}><AccountCircle className={styles.button_icon} /></div>
                 )}
                 <div className={styles.caregiver_contact}>
-                    <div className={styles.address}>
+                <div className={styles.address}>
+                        <div>
+                            <strong>Endereço: </strong>
+                            <span>{userData.endereco.cidade}, {userData.endereco.uf}</span>
+                        </div>
                         < LocationOnOutlinedIcon className={styles.location_icon}/>
-                        <span>{userData.endereco.cidade}, {userData.endereco.uf}</span>
                     </div>
-                    <p>{userData.contato.email}</p>
-                    <p>{userData.contato.celular}</p>
+                    <p className={styles.elder_contact}><strong>Email: </strong>{userData.contato.email}</p>
+                    <p className={styles.elder_contact}><strong>Celular: </strong>{userData.contato.celular}</p>
                 </div>
                 </div>
                 <div className={styles.caregiver_right_content}>

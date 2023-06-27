@@ -5,9 +5,9 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import { useNavigate } from 'react-router-dom';
 import styles from "./LoginButton.module.css";
 import BackgroundLetterAvatar from './BackgroundLetterAvatar';
-import { fetchUserByUsername } from "../utils/apiUtils";
+import { fetchUserByUsername, fetchImage, setImage } from "../utils/apiUtils";
 import { useCookies } from "react-cookie";
-import { Avatar } from 'primereact/avatar';
+import Avatar from '@mui/material/Avatar';
 
 function LoginButton({isLoggedIn, isLoggedOut}) {
     const [cookies] = useCookies(['carerToken', 'patientToken', 'username'])
@@ -38,6 +38,26 @@ function LoginButton({isLoggedIn, isLoggedOut}) {
         }
     }, [cookies]);
 
+
+    useEffect(() =>{
+        let token;
+        if (cookies.carerToken) {
+            token = cookies.carerToken;
+
+        } else if (cookies.patientToken) {
+            token = cookies.patientToken;
+        }
+        fetchImage(cookies.username, token).then((imageUrl) => {
+                setPath(imageUrl);
+                const divElement = document.getElementById('profile_image');
+                divElement.style.backgroundImage = `url(${imageUrl})`;
+            })
+            .catch((error) => {
+                console.log(error.message);
+            });
+    }, []);
+
+
     const [isLoginBarOpen, setIsLoginBarOpen] = useState(false);
 
     const toggleLoginBar = () => {
@@ -57,11 +77,19 @@ function LoginButton({isLoggedIn, isLoggedOut}) {
             </div>
         )}
         {isLoggedIn && (
-        <div className={styles.header_actions}>
-        <button className={styles.header_login} onClick={toggleLoginBar}>
-            <BackgroundLetterAvatar name={nome} />
-        </button>
-        </div>
+        <>
+            {path ? (
+            <button className={styles.header_login} onClick={toggleLoginBar}>
+                <div id="profile_image" className={styles.profile_image}></div>
+            </button>
+            ) : (
+            <div className={styles.header_actions}>
+                <button className={styles.header_login} onClick={toggleLoginBar}>
+                <BackgroundLetterAvatar name={nome} />
+                </button>
+            </div>
+            )}
+        </>
         )}
         {isLoggedIn && isLoginBarOpen && <LoginBar username={cookies.username} nome={nome} path={path}/>}
         </div>

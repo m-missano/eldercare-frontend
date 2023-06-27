@@ -8,10 +8,29 @@
 }
 
 .card {
-    max-width: 345px;
+    width: 345px;
     height: 400px;
 }
 
-.cardMedia {
-    height: 165px;
+.cardContent{
+    padding-bottom:1px;
+}
+
+.caregiver_image {
+    height: 190px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center; 
+}
+
+.button_icon {
+    background-color: #219CA4;
+    border-radius: 40px;
+    width: 100%;
+    height: 100%;
+    color: #fefefefe;
+}
+
+.card .button {
+    margin-bottom: 3px;
 }

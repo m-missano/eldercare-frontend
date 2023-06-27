@@ -5,38 +5,41 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { ReactComponent as Icone } from "../expand.svg";
 import { useCookies } from 'react-cookie';
-import { fetchUserById } from "../utils/apiUtils";
+import { fetchUserById, fetchCarers } from "../utils/apiUtils";
 import { fetchCarersByPrompt } from "../utils/gptUtils" 
 import MediaCard from "../components/MediaCard";
 
 function Search() {
     const [selecionado, setSelecionado] = useState(false);
     const [cookies] = useCookies(['carerToken', 'patientToken', 'username'])
-<<<<<<< Updated upstream
-    const ids = [];
-=======
     const [ids, setIds] = useState();
->>>>>>> Stashed changes
     const [listaCarers, setListaCarers] = useState([]);
-    const [query, setQuery] = useState();
+    const [query, setQuery] = useState('');
+
+
+    useEffect(() => {
+        const savedQuery = localStorage.getItem('query');
+        const savedIds = localStorage.getItem('ids');
+        console.log("executuou2: ", savedIds)
+        if (savedQuery) {
+           setQuery(savedQuery);
+        }
+        
+        if (savedIds) {
+            let listaInteiros = savedIds.split(",").map(Number);
+            setIds(listaInteiros);
+        }
+
+    }, []);
 
     useEffect(() => {
         if (cookies.carerToken || cookies.patientToken) {
-          // Se pelo menos um cookie estiver presente, consideramos o usuário como logado
-          fetchCuidadores();
-        } else {
-    
+            console.log("executuou")
+            fetchCuidadores();
         }
-<<<<<<< Updated upstream
-    }, [cookies]);
-=======
-    }, [cookies.carerToken, ids]);
->>>>>>> Stashed changes
-    
-    const addCarer = (carer) => {
-        setListaCarers([...listaCarers, carer]);
-    };
+    }, [cookies.carerToken, cookies.patientToken, ids]);
 
+    
     const fetchCuidadores = async () => {
         let token;
         try {
@@ -57,20 +60,42 @@ function Search() {
     };
 
     const onSubmit = () => {
-        const body = {
-            prompt: query,
-            limit: 5,
-            caregivers: [{
-                "idCuidador": 14,
-                "descricao": "Trabalho em meio período, sou atenciosa e paciente, trabalho com idosos há 9 anos, moro na cidade de Natal - RN, minhas especialidades incluem auxílio na alimentação, administração de medicamentos e suporte nas tarefas diárias."
-            }]
+        let token;
+        if(cookies.carerToken){
+            token = cookies.carerToken
         }
-        fetchCarersByPrompt(body).then((data) => {
-            console.log("MEUS DADOS: ", data)
-            setIds([1, 9])
-            console.log("OnSubmit Lista: ", ids)
-            fetchCuidadores()
-        })
+        else if(cookies.patientToken){
+            token = cookies.patientToken
+        }
+
+        fetchCarers(token).then((data) => {
+            
+            var caregiverList = []
+            data.forEach((item) => {
+                caregiverList.push({
+                    "idCuidador": item.idPessoa,
+                    "descricao": item.descricao
+                });
+            })
+
+            console.log("caregiverList", caregiverList);
+
+            const body = {
+                prompt: query,
+                limit: 5,
+                caregivers: caregiverList
+            }
+            fetchCarersByPrompt(body).then((data) => {
+                console.log("MEUS DADOS: ", data)
+                console.log(data.data)
+                
+                const listaInteiros = data.data.split(",").map(Number);
+                setIds(listaInteiros);
+                localStorage.setItem('query', query);
+                localStorage.setItem('ids', listaInteiros);
+                console.log("Lista de Inteiros", listaInteiros);
+            })
+        }).catch((err) => console.log(err));
     }
 
     return (
@@ -81,12 +106,12 @@ function Search() {
                 <div className={styles.search}>
                     <div className={styles.search_left}>
                         <input type="text" id="busca" name="busca" placeholder="Pesquisar..." autocomplete="off"
-                                value={query} onChange={(e) => setQuery(e.target.value)}
+                                value={query}  onChange={(e) => setQuery(e.target.value)}
                         />
                     <button type="button" onClick={onSubmit}></button>
                     </div>
                     <div className={styles.search_right}>
-                        <select className={styles.select_limit}>
+                        <select className={styles.select_limit} id="limitSelection">
                             <option value="5">5</option>
                             <option value="10">10</option>
                             <option value="15">15</option>

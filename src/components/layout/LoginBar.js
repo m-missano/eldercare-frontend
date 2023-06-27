@@ -6,7 +6,8 @@ import BackgroundLetterAvatar from '../BackgroundLetterAvatar';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import EditIcon from '@mui/icons-material/Edit';
 import LogoutIcon from '@mui/icons-material/Logout';
-import Avatar from '@mui/joy/Avatar';
+import { fetchImage } from "../../utils/apiUtils";
+import { useState, useEffect } from 'react';
 
 function LoginBar({ username, nome, path}){
 
@@ -18,12 +19,37 @@ function LoginBar({ username, nome, path}){
     removeCookie('patientToken')
   }
 
+  useEffect(() =>{
+    let token;
+    console.log("PAAAAATH: ", path);
+    if (cookies.carerToken) {
+        token = cookies.carerToken;
+
+    } else if (cookies.patientToken) {
+        token = cookies.patientToken;
+    }
+    fetchImage(cookies.username, token).then((imageUrl) => {
+            const divElement = document.getElementById('profile_pic0');
+            divElement.style.backgroundImage = `url(${imageUrl})`;
+        })
+        .catch((error) => {
+            console.log(error.message);
+        });
+  }, []);
+
   return(
     <div className={styles.login_container}>
-        <div className={styles.login_header}>
-              <BackgroundLetterAvatar name={nome} />
-           <h1> {username} </h1> 
-        </div>
+         {path ? (
+            <div className={styles.login_header}>
+              <div id="profile_pic0" className={styles.profile_image}></div>
+              <h1> {username} </h1>
+            </div>
+            ) : (
+          <div className={styles.login_header}>
+            <BackgroundLetterAvatar name={nome} />
+            <h1> {username} </h1> 
+          </div>
+          )}
         <ul className={styles.list}>
           <li className={styles.item}>
             <AccountBoxIcon className={styles.perfil}></AccountBoxIcon>
