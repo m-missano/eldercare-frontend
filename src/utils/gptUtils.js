@@ -1,4 +1,4 @@
-
+/* Recupera os cuidadores de acordo com a descrição */
 export const fetchCarersByPrompt = (body) => {
     return fetch(`http://localhost:5000/find-caregivers`, {
         method: "POST",

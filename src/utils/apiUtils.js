@@ -6,6 +6,23 @@ export const fetchUsers = () => {
       .catch((err) => console.log(err.message))
 }
 
+/* Recupera todos os usuarios */
+export const fetchCarers = (token) => {
+  return fetch(`http://localhost:8080/api/usuario/cuidador/`, {
+    headers: {
+      'Authorization': token,
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Erro na requisição da API');
+      }
+      return response.json();
+    })
+    .catch((err) => console.log(err.message));
+};
+
+
 /* Recupera um usuario especifico passando seu cpf */
 export const fetchUserByCpf = (cpf) => {
   return fetch(`http://localhost:8080/api/usuario/${cpf}`)
@@ -87,6 +104,7 @@ export const addElder = async (clientId, body) => {
   .catch((err) => console.log(err.message))
 }
 
+/* Recupera um usuário de acordo com seu username */
 export const fetchUserByUsername = (username, token) => {
   //const tokenWithoutBearer = token.replace('Bearer ', '');
   //console.log(tokenWithoutBearer);
@@ -104,6 +122,7 @@ export const fetchUserByUsername = (username, token) => {
     .catch((err) => console.log(err.message));
 };
 
+/* Recupera as atividades de acordo com o idoso */
 export const fetchActivityByElderID = (elderID, token) => {
   return fetch(`http://localhost:8080/api/idoso/atividade/${elderID}`, {
     headers: {
@@ -121,6 +140,7 @@ export const fetchActivityByElderID = (elderID, token) => {
     });
 };
 
+/* Adiciona uma nova atividade de acordo com o idoso */
 export const addActivity = (idosoId, token, body) => {
   return fetch(`http://localhost:8080/api/idoso/atividade/${idosoId}`, {
     method: 'POST',
@@ -141,6 +161,7 @@ export const addActivity = (idosoId, token, body) => {
     });
   };
 
+/* Deleta uma atividade de acordo com o id da atividade */
 export const deleteActivity = (idosoid, actid, token) => {
   return fetch(`http://localhost:8080/api/idoso/atividade/${idosoid}/${actid}`, {
     method: 'DELETE',
@@ -161,6 +182,7 @@ export const deleteActivity = (idosoid, actid, token) => {
 };
 
   
+/* Atualiza uma atividade de acordo com o id do idoso e o id da atividade */
 export const updateActivity = (idosoId, atividadeId, token, data) => {
 return fetch(`http://localhost:8080/api/idoso/atividade/${idosoId}/${atividadeId}`, {
   method: 'PUT',
@@ -181,6 +203,7 @@ return fetch(`http://localhost:8080/api/idoso/atividade/${idosoId}/${atividadeId
   });
 };
 
+/* Recupera o token de autorização */
 export const fetchAuthorization = (body) => {
     return fetch(`http://localhost:8080/api/login`, {
         method: 'POST',
@@ -193,6 +216,7 @@ export const fetchAuthorization = (body) => {
     .catch((err) => console.log(err.message));
 };
 
+/* Recupera um usuário de acordo com o seu id */
 export const fetchUserById = (userId, token) => {
   return fetch(`http://localhost:8080/api/usuario/busca/${userId}`, {
     headers: {
@@ -208,6 +232,7 @@ export const fetchUserById = (userId, token) => {
     .catch((err) => console.log(err.message));
 };
 
+/* Recupera um idoso de acordo com o seu CPF */
 export const fetchElderByCPF = (CPF, token) => {
   return fetch(`http://localhost:8080/api/idoso/busca/${CPF}`, {
     headers: {
@@ -222,7 +247,8 @@ export const fetchElderByCPF = (CPF, token) => {
     })
     .catch((err) => console.log(err.message));
 };
-/**/ 
+
+/* Adiciona um cuidador para um idoso de acordo com o seu CPF e token */ 
 export const setCarerForElder = (username, CPF, token, tokenJWT) => {
   return fetch(`http://localhost:8080/api/idoso/${username}/${CPF}/${token}`, {
     method: "POST",
@@ -239,6 +265,7 @@ export const setCarerForElder = (username, CPF, token, tokenJWT) => {
     .catch((err) => console.log(err.message));
 };
 
+/* Atualiza as condições médicas de um idoso de acordo com o seu id */
 export const updateMedicCond = async (idosoid, token, body) => {
   try {
       const response = await fetch(`http://localhost:8080/api/idoso/${idosoid}/medicDescription`, {
@@ -260,6 +287,7 @@ export const updateMedicCond = async (idosoid, token, body) => {
   }
 }
 
+/* Adiciona uma imagem de perfil para um usuário de acordo com o seu id */
 export const setImage = (idPessoa, file) => {
   const formData = new FormData();
   formData.append('file', file);
@@ -270,4 +298,29 @@ export const setImage = (idPessoa, file) => {
   })
     .then((response) => response.json())
     .catch((err) => console.log(err.message));
+};
+
+export const fetchImage = (login, token) => {
+  return fetch(`http://localhost:8080/api/usuario/imagem/${login}`,
+  {
+      method: 'GET',
+      headers: {
+          'Authorization': token,
+      },
+      }
+  )
+  .then((response) => {
+    if (response.ok) {
+    // A resposta é bem-sucedida, então retornamos os dados da imagem como uma Promise
+    return response.blob();
+    } else {
+    // A resposta não é bem-sucedida, então lançamos um erro
+    throw new Error('Erro ao obter a imagem');
+    }
+  })
+  .then((blob) => {
+    const urlCreator = window.URL || window.webkitURL;
+    return urlCreator.createObjectURL(blob);
+  })
+  .catch((err) => console.log(err.message));
 };
