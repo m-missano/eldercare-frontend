@@ -9,7 +9,6 @@ import Typography from '@mui/material/Typography';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import styles from './MediaCard.module.css';
 import { useNavigate } from 'react-router-dom';
-import myImage from '../profile-images/jenny.jpg';
 import { useCookies } from "react-cookie";
 import { fetchUserById, fetchImage } from "../utils/apiUtils";
 import AccountCircle from '@mui/icons-material/AccountCircle';
