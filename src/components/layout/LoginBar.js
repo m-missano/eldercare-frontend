@@ -17,11 +17,14 @@ function LoginBar({ username, nome, path}){
     removeCookie('username');
     removeCookie('carerToken')
     removeCookie('patientToken')
+    localStorage.removeItem("ids")
+    localStorage.removeItem("query")
+    localStorage.removeItem("currentCarerId")
   }
 
   useEffect(() =>{
     let token;
-    console.log("PAAAAATH: ", path);
+    console.log("PATH: ", path);
     if (cookies.carerToken) {
         token = cookies.carerToken;
 
