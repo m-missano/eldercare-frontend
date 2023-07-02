@@ -1,9 +1,5 @@
-import logo from './logo.svg';
+import logo from './images/logo.svg';
 import './App.css';
-import { useEffect, useState } from 'react';
-import { fetchAuthorization, fetchUserByUsername, fetchUsers } from './utils/apiUtils';
-import SearchUserByCpf from './components/SearchUserByCpf';
-import AddUser from './components/AddUser';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import React from 'react';
 import Home from './pages/Home';
@@ -22,7 +18,6 @@ import { useCookies } from 'react-cookie';
 function App() {
 
   const [cookies] = useCookies(['carerToken', 'patientToken', 'username'])
-  const [user, setUser] = useState([]);
 
   return (
     <div className="App">

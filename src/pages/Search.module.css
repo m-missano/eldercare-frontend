@@ -77,7 +77,7 @@
     height: 65px;
     text-align: center;
     text-justify: center;
-    background-image: url("../expand.svg");
+    background-image: url("../images/expand.svg");
     background-repeat: no-repeat;
     background-position: right center;
     background-size: 35px;
@@ -105,7 +105,7 @@
     width: 60px;
     height: 60px;
     cursor: pointer;
-    background-image: url("../searchicon.svg");
+    background-image: url("../images/searchicon.svg");
     background-size: 35px;
     background-repeat: no-repeat;
     background-position: center;

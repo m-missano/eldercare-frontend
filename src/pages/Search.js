@@ -1,16 +1,13 @@
 import styles from "./Search.module.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { ReactComponent as Icone } from "../expand.svg";
 import { useCookies } from 'react-cookie';
 import { fetchUserById, fetchCarers } from "../utils/apiUtils";
 import { fetchCarersByPrompt } from "../utils/gptUtils" 
 import MediaCard from "../components/MediaCard";
 
 function Search() {
-    const [selecionado, setSelecionado] = useState(false);
     const [cookies] = useCookies(['carerToken', 'patientToken', 'username'])
     const [ids, setIds] = useState();
     const [listaCarers, setListaCarers] = useState([]);
@@ -20,7 +17,7 @@ function Search() {
     useEffect(() => {
         const savedQuery = localStorage.getItem('query');
         const savedIds = localStorage.getItem('ids');
-        console.log("executuou2: ", savedIds)
+        console.log("executou 2: ", savedIds)
         if (savedQuery) {
            setQuery(savedQuery);
         }

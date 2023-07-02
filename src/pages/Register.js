@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import styles from "./Register.module.css";
 import Header from "../components/Header";
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Footer from "../components/Footer";
 import validator from 'validator';
 import Profile from "../components/Profile";

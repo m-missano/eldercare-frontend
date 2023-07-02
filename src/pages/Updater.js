@@ -6,7 +6,6 @@ import { useNavigate, Link } from 'react-router-dom';
 import Footer from "../components/Footer";
 import validator from 'validator';
 import Profile from "../components/Profile";
-import { cpf } from "cpf-cnpj-validator";
 import { removeNonNumeric } from "../utils/Utils";
 import { useCookies } from "react-cookie";
 import { fetchUserByUsername } from "../utils/apiUtils";

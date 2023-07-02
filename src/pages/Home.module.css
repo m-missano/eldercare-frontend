@@ -100,7 +100,7 @@
 
 .patient_image {
     margin-top: 20px;
-    background-image: url('../patient.png');
+    background-image: url('../images/patient.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -139,7 +139,7 @@
 
 .stethoscope_image {
     margin-top: 25px;
-    background-image: url('../stethoscope.png');
+    background-image: url('../images/stethoscope.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;

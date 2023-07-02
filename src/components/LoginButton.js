@@ -7,7 +7,6 @@ import styles from "./LoginButton.module.css";
 import BackgroundLetterAvatar from './BackgroundLetterAvatar';
 import { fetchUserByUsername, fetchImage, setImage } from "../utils/apiUtils";
 import { useCookies } from "react-cookie";
-import Avatar from '@mui/material/Avatar';
 
 function LoginButton({isLoggedIn, isLoggedOut}) {
     const [cookies] = useCookies(['carerToken', 'patientToken', 'username'])
