@@ -88,9 +88,9 @@ function PagePatient() {
             <div className={`${styles.page_container} ${styles.customFont}`}>
                 <div className={styles.elder_left_content}>
                     {userData.path ? (
-                    <div id="profile_pic2" className={styles.profile_image}></div>
+                    <div id="profile_pic2" className={styles.elder_image}></div>
                     ) : (
-                    <div className={styles.profile_image}><AccountCircle className={styles.button_icon} /></div>
+                    <div className={styles.elder_image}><AccountCircle className={styles.button_icon} /></div>
                     )}
                     <h1>{userData.idososRelacionados[0].nome} ({getAge(userData.idososRelacionados[0].dataNasc)} anos)</h1>
                     <p className={styles.elder_gender}><strong>Sexo: </strong>{userData.idososRelacionados[0].sexo}</p>

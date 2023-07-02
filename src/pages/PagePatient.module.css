@@ -36,11 +36,11 @@
     margin-right: 40px;
 }
 
-.profile_image {
+.elder_image {
     width: 350px;
     height: 350px;
     background-position: center;
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
     border-radius: 40px;
     padding-bottom: 10px;
@@ -267,7 +267,7 @@
     background-color: #219CA4;
 }
 
-.button_icon {
+.elder_image .button_icon {
     background-color: #219CA4;
     border-radius: 40px;
     width: 100%;
